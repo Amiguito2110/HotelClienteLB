@@ -1,0 +1,136 @@
+body {
+    background-color: #f5f5dc;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.container {
+    margin: auto;
+    padding: 20px;
+    margin-top: 10%;
+}
+
+.card {
+    margin: auto;
+    max-width: 500px;
+    background-color: #FFF;
+    /* Blanco */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    /* Sombra */
+}
+
+.card-content {
+    padding: 20px;
+}
+
+.card-title {
+    font-size: 24px;
+    color: #000;
+    /* Negro */
+    text-align: center;
+}
+
+.card-img-top {
+    display: block;
+    margin: auto;
+    margin-bottom: 10%;
+}
+
+.input-field input[type="email"] {
+    border-bottom: 1px solid #be8f17;
+    /* Dorado */
+}
+
+.input-field input[type="email"]:focus {
+    border-bottom: 1px solid #000;
+    /* Negro */
+}
+
+.btn {
+    background-color: #be8f17;
+    /* Dorado */
+    color: #FFF;
+    /* Blanco */
+}
+
+.btn:hover {
+    background-color: #000;
+    /* Negro */
+}
+
+.btn .material-icons {
+    color: #FFF;
+    /* Blanco */
+}
+
+/*ESTILOS PARA LOS INPUTS*/
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-field {
+    position: relative;
+}
+
+.input-field {
+    width: 100%;
+}
+
+.input-field input[type="email"],
+.input-field input[type="password"],
+.input-field input[type="text"] {
+    border: 1px solid #be8f17;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+/* Estilos para el label en el primer y tercer estado */
+.input-field label {
+    position: absolute;
+    top: px;
+    left: 8px;
+    transition: top 0.3s, left 0.3s;
+    pointer-events: none;
+    color: #555;
+    transition: 300ms;
+}
+
+/* Cambios en el label cuando el campo está enfocado */
+.input-field input[type="email"]:focus+label,
+.input-field input[type="password"]:focus+label,
+.input-field input[type="text"]:focus+label {
+
+    position: absolute;
+    top: -6px;
+    left: 8px;
+    transition: top 0.3s, left 0.3s;
+    pointer-events: none;
+    color: #555;
+    transition: 300ms;
+    color: #be8f17 !important;
+    font-size: 16px;
+}
+
+.alinear-derecha
+{
+    margin-left: 50%;
+    transform: translateX(-50%);
+    text-transform:none !important;
+
+}
+.card-title
+{
+  padding-bottom: 5%;
+  padding-left: 5%;
+  transform: translateX(5%);
+  transform: translateY(5%);
+}
+.btn:hover {
+    background-color: #555;
+  }

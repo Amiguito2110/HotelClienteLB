@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link type="text/css" rel="stylesheet" href="/../../../assets/materialize/css/materialize.min.css/"
+    media="screen,projection" />
+  <style>
+    html {
+      background-color: blanchedalmond;
+    }
+
+    .centrado {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: fit-content;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="centrado">
+    <div class="container">
+      <div class="card">
+        <div class="card-content">
+          <h2>{{"Listado de Recepcionistas"|translate}}</h2>
+          <div class="center-align">
+            <button class="btn" (click)="abrirModalCrearRecep()">{{"Agregar Recepcionista"|translate}}</button>
+          </div>
+          <div class="row">
+          </div>
+          <table class="striped">
+            <thead>
+              <tr>
+                <th>{{"Nombre Completo"|translate}}</th>
+                <th>{{"Correo Electronico"|translate}}</th>
+                <!-- <th>{{"Contraseña"|translate}}</th> -->
+                <th>{{"Número Teléfono"|translate}}</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr *ngFor="let cuenta of listaCuentas">
+                <td>{{ cuenta.NombreCompleto}}</td>
+                <td>{{ cuenta.CorreoElectronico }}</td>
+                <!-- <td>{{ cuenta.Contrasena }}</td> -->
+                <td>{{ cuenta.NumeroTelefono }}</td>
+
+                <td><a href="javascript: void(0);" class="space" (click)="actualizarcuenta(cuenta)">
+                    <i class="material-icons">edit</i></a>
+                </td>
+                <td>
+                  <button class="btn red" (click)="eliminar_recepcionista(cuenta.IDCuenta)">
+                    <i class="material-icons">delete</i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="editPersonalModal" class="modal" name="editDates">
+    <div class="modal-content">
+      <h4>{{"Editar Información"|translate}}</h4>
+      <form>
+        <div class="input-field">
+          <input [(ngModel)]="cuenta2.NombreCompleto" id="Nombre" type="text" class="validate"
+            name="tipoNombre">
+          <label class="active" for="tipoNombre">{{"Nombre Completo"|translate}}</label>
+        </div>
+        <div class="input-field">
+          <input [(ngModel)]="cuenta2.CorreoElectronico" id="Correo" type="text" class="validate" name="correo">
+          <label class="active" for="correo">{{"Correo Electronico"|translate}}</label>
+        </div>
+        <div class="input-field">
+          <input [(ngModel)]="cuenta2.Contrasena" id="contrasena" type="password" class="validate"
+            name="contrasena">
+          <label class="active" for="contrasena">{{"Contraseña"|translate}}</label>
+        </div>
+        <div class="input-field">
+          <input [(ngModel)]="cuenta2.NumeroTelefono" id="telefono" type="number" class="validate" name="telefono">
+          <label class="active" for="telefono">{{"Número de telefono"|translate}}</label>
+        </div>
+        <button (click)="guardar_cambios(cuenta2.IDCuenta)" class="btn waves-effect waves-light" type="submit"
+          name="action">{{"Guardar Cambios"|translate}}</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="agregarRecepcionista" class="modal">
+    <div class="modal-content">
+      <h4>{{"Nuevo Recepcionista"|translate}}</h4>
+      <form>
+        <div class="input-field">
+          <input [(ngModel)]="cuenta.NombreCompleto" id="Nombre" type="text" class="validate"
+            name="nuevoNombre">
+          <label class="active" for="tipoNombreNuevo">{{"Nombre Completo"|translate}}</label>
+        </div>
+        <div class="input-field">
+          <input [(ngModel)]="cuenta.CorreoElectronico" id="Correo" type="text" class="validate"
+            name="nuevoCorreo">
+          <label class="active" for="correoNuevo">{{"Correo Electronico"|translate}}</label>
+        </div>
+        <div class="input-field">
+          <input [(ngModel)]="cuenta.Contrasena" id="Contrasena" type="password" class="validate"
+            name="nuevaContrasena">
+          <label class="active" for="contrasenaNuevo">{{"Contraseña"|translate}}</label>
+        </div>
+        <div class="input-field">
+          <input [(ngModel)]="cuenta.NumeroTelefono" id="telefono" type="number" class="validate" name="telefonoNuevo">
+          <label class="active" for="nuevoTelefono">{{"Número de Télefono"|translate}}</label>
+        </div>
+        <button (click)="crear_recepcionista()" class="btn waves-effect waves-light" type="submit" name="action">{{"Crear Recepcionista"|translate}}</button>
+      </form>
+    </div>
+  </div>
+
+  <script type="text/javascript" src="/../../../assets/materialize/js/materialize.min.js/"></script>
+</body>
+
+</html>

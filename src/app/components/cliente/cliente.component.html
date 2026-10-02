@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{"Inicio-Bienvenido"|translate}} {{NombreCliente}}</title>
+  <!-- Materialize CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+  <div>
+    <nav class="navbar">
+      <div class="nav-wrapper">
+        <div class="imgusuario">
+          <img class="card-img-top" src="../../../assets/images/logo_transparente.png" width="150" height="90">
+          <p class="mensaje1">{{"Bienvenido"|translate}} {{NombreCliente}}</p>
+        </div>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down centrar">
+          <li><a href="/ofertascliente"><i class="material-icons">local_offer</i><span class="texto">{{"Ofertas"|translate}}</span></a>
+          </li>
+          <li><a href="/cliente"><i class="material-icons alinear">home</i><span class="texto">{{"Inicio"|translate}}</span></a></li>
+          <li><a href="/home/reservaciones" class="waves-effect waves-light btn centrar2">{{"Nueva reservacion"|translate}}<i
+                class="material-icons right">book</i></a></li>
+          <li><a href="/home/cliente_bookings"><i class="material-icons alinear">list</i><span
+                class="texto">{{"Historial"|translate}}</span></a></li>
+          <li><a href="/home/carrito"><i class="material-icons alinear">shopping_cart</i><span
+                class="texto">{{"Carrito"|translate}}</span></a></li>
+          <li><a href="/home/cliente_config"><i class="material-icons">account_circle</i><span
+                class="texto">{{"Cuenta"|translate}}</span></a></li>
+          <!-- Botón desplegable de idioma -->
+          <li style="margin-top: 10px;">
+            <a class="dropdown-trigger" href="#" data-target="dropdown3" style="line-height: 64px;"><i
+                class="material-icons">language</i></a>
+          </li>
+          <li>
+            <a href="#" onclick="logout()"><i class="material-icons alinear">logout</i><span
+                class="texto">{{"Salir"|translate}}</span></a>
+          </li>
+        </ul>
+        <ul id="dropdown3" class="dropdown-content idioma-nav">
+          <li (click)="setIdioma(1)"><a>{{"English"|translate}}</a></li>
+          <li (click)="setIdioma(2)"><a>{{"Español"|translate}}</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+  
+  
+  <app-user-principal-ui></app-user-principal-ui>
+
+  <footer class="page-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <div class="letras">
+            <h5 class="white-text" style="font-family: 'Arial Black', sans-serif; font-size: 22px;">{{"Campestre Don Luis"|translate}}
+            </h5>
+            <p class="grey-text text-lighten-4" style="font-family: 'Verdana', sans-serif; font-size: 15px;">{{"Calidad y confort."|translate}}</p>
+          </div>
+        </div>
+
+        <div class="col l4 offset-l2 s12">
+          <h5 class="white-text" style="font-family: 'Arial Black', sans-serif; font-size: 24px;">{{"Redes Sociales"|translate}}</h5>
+          <ul class="logos">
+            <li><a class="grey-text text-lighten-3" href="https://web.whatsapp.com/"><i class="fab fa-whatsapp"></i>
+                <img src="../../../assets/images/watsap-icon.png" alt="img wats" class="cuadrar"></a></li>
+            <li><a class="grey-text text-lighten-3" href="https://facebook.com"><i class="fab fa-facebook" cuadrar></i>
+                <img src="../../../assets/images/facebook-icon.png" alt="ing facebook" class="cuadrar"></a></li>
+            <li><a class="grey-text text-lighten-3" href="https://instagram.com"><i class="fab fa-instagram"></i> <img
+                  src="../../../assets/images/instagram-icon.png" alt=" img instagram" class="cuadrar"></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- Materialize JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</body>
+
+</html>

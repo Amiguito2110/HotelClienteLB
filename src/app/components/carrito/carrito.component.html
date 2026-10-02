@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link type="text/css" rel="stylesheet" href="/../../../assets/materialize/css/materialize.min.css/"
+    media="screen,projection" />
+  <style>
+    .centrado {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: fit-content;
+    }
+
+    html {
+      background-color: blanchedalmond;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="centrado">
+    <div class="card">
+      <div class="card-content">
+        <h5>{{'Carrito'|translate}}</h5>
+        <p>{{'Reservas pendientes'|translate}}</p>
+        <table class="responsive-table">
+          <thead>
+            <tr>
+              <th>{{'FechaEntrada'|translate}}</th>
+              <th>{{'FechaSalida'|translate}}</th>
+              <th>{{'CostoTotal'|translate}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let reserva of reservas_filtrado | paginate: {
+              itemsPerPage: pageSize,
+              currentPage: p
+              };let i=index ">
+              <td>{{ reserva.FechaEntrada }}</td>
+              <td>{{ reserva.FechaSalida }}</td>
+              <td>${{ reserva.CostoTotal }}.00 MXN</td>
+              <td> <a (click)="setBookingDetails(reserva.IDCarrito)" class="btn"><i
+                    class="material-icons">view_list</i></a>
+              </td>
+              <td>
+                <div class="row">
+                  <div class="col s12">
+                    <button (click)="modalHacerReservacion(reserva)" class="btn waves-effect waves-light" type="submit"
+                      name="action">
+                      {{'Ingresar detalles'|translate}}
+                      <i class="material-icons right">send</i>
+                    </button>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div *ngIf="lenght > 0" class="row center-align">
+          <pagination-controls class="my-pagination" (pageChange)="p = ($event)" previousLabel="{{'Anterior'|translate}}"
+            nextLabel="{{'Siguiente'|translate}}">
+          </pagination-controls>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+  <div class="centrado">
+    <div class="card">
+      <div class="card-content">
+        <h5>{{'Reservaciones excluidas'|translate}}</h5>
+        <p>{{'Ya no es posible concluir las siguientes reservas por falta de disponibilidad.'|translate}}</p>
+        <table class="responsive-table">
+          <thead>
+            <tr>
+              <th>{{'FechaEntrada'|translate}}</th>
+              <th>{{'FechaSalida'|translate}}</th>
+              <th>{{'CostoTotal'|translate}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let reserva of reservas_canceladas | paginate: {
+              itemsPerPage: pageSize,
+              currentPage: p
+              };let i=index ">
+              <td>{{ reserva.FechaEntrada }}</td>
+              <td>{{ reserva.FechaSalida }}</td>
+              <td>${{ reserva.CostoTotal }}.00 MXN</td>
+            </tr>
+          </tbody>
+        </table>
+        <div *ngIf="lenght > 0" class="row center-align">
+          <pagination-controls class="my-pagination" (pageChange)="p = ($event)" previousLabel="{{'Anterior'|translate}}"
+            nextLabel="{{'Siguiente'|translate}}">
+          </pagination-controls>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+  <div id="modalReservacion" class="modal">
+    <div class="modal-content">
+      <h4>{{'Reservar habitaciones'|translate}}</h4>
+      <form>
+        <div class="row">
+          <div class="input">
+            <input [(ngModel)]="carrito_copia.FechaEntrada" id="fechaIni" name="fechaIni" type="text" class="validate"
+              disabled>
+            <label for="fechaIni">{{'Fecha CheckIn'|translate}}</label>
+          </div>
+        </div>
+  
+        <div class="row">
+          <div class="input">
+            <input [(ngModel)]="carrito_copia.FechaSalida" id="fechaFin" name="fechaFin" type="text" class="validate"
+              disabled>
+            <label for="fechaFin">{{'Fecha CheckOut'|translate}}</label>
+          </div>
+        </div>
+  
+        <div class="row">
+          <div class="input">
+            <select #horaLlegadaSelect (change)="setHora(horaLlegadaSelect.value)">
+              <option value="0" disabled selected>{{'Hora de llegada'|translate}}</option>
+              <option value="15:00:00">15:00:00</option>
+              <option value="16:00:00">16:00:00</option>
+              <option value="17:00:00">17:00:00</option>
+              <option value="18:00:00">18:00:00</option>
+              <option value="19:00:00">19:00:00</option>
+              <option value="20:00:00">20:00:00</option>
+              <option value="21:00:00">21:00:00</option>
+              <option value="22:00:00">22:00:00</option>
+              <option value="23:00:00">23:00:00</option>
+              <option value="00:00:00">00:00:00(Siguiente día)</option>
+            </select>
+            <label for="HoraLlegada">{{'Hora de llegada'|translate}}</label>
+          </div>
+        </div>
+  
+        <div class="row">
+          <div class="text">
+            <label for="fechaFin">{{'Sus demás datos son enviados automáticamente'|translate}}</label>
+          </div>
+        </div>
+  
+        <!-- Botón de Envío -->
+  <div class="row">
+    <div class="col s12">
+      <button (click)="hacer_reservacion_2()" class="btn waves-effect waves-light" type="submit" name="action">
+        {{'Confirmar Reservación'|translate}}
+        <i class="material-icons right">booking</i>
+      </button>
+    </div>
+  </div>
+</form>
+</div>
+</div>
+
+<div id="MostrarDetalles" class="modal">
+  <div class="modal-content">
+    <h4>{{'Detalles de la reservación'|translate}}</h4>
+    <table class="striped">
+      <thead>
+        <tr>
+          <th>{{'Tipo de Habitación'|translate}}</th>
+          <th>{{'Cantidad'|translate}}</th>
+        </tr>
+      </thead>
+      <tbody id="tablaReservaciones">
+        <tr *ngFor="let booking_details of detallesCarrito">
+          <!-- <td>{{ booking_details.TipoHabitacion }}</td> -->
+          <td>{{ booking_details.CantidadHabitaciones }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+  <script type="text/javascript" src="/../../../assets/materialize/js/materialize.min.js/"></script>
+</body>
+
+</html>

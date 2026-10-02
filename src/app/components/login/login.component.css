@@ -1,0 +1,241 @@
+/* Estilo inicial */
+.card {
+  margin-top: 14%;
+    width: 100%;
+    max-width: 800px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+  }
+  
+  .card-content {
+    padding: 20px;
+  }
+  
+  .card-img-top {
+    display: block;
+    margin: 0 auto 20px;
+    max-width: 100%;
+  }
+  
+  .form-container {
+    display: flex;
+    flex-direction: column;
+  }
+  .input-field {
+    position: relative;
+  }
+  
+  .input-field {
+    width: 100%;
+  }
+  
+  .input-field input[type="email"],
+  .input-field input[type="password"],
+  .input-field input[type="text"] {
+    border: 1px solid #be8f17;
+    padding: 5px;
+    border-radius: 5px;
+  }
+  
+  /* Estilos para el label en el primer y tercer estado */
+  .input-field label {
+    position: absolute;
+    left: 8px;
+    transition: top 0.3s, left 0.3s;
+    pointer-events: none;
+    color: #555;
+    transition: 300ms;
+  }
+  
+  /* Cambios en el label cuando el campo está enfocado */
+  .input-field input[type="email"]:focus + label,
+  .input-field input[type="password"]:focus + label,
+  .input-field input[type="text"]:focus + label {
+  
+    position: absolute;
+    top: -6px;
+    left: 8px;
+    transition: top 0.3s, left 0.3s;
+    pointer-events: none;
+    color: #555;
+    transition: 300ms;
+    color: #be8f17 !important;
+    font-size: 16px;
+  }
+  
+  
+  .password-toggle {
+    position: absolute;
+    right: 10px; /* Ajusta la distancia desde el borde derecho */
+    top: 50%; /* Centra verticalmente el ícono */
+    transform: translateY(-50%); /* Ajusta verticalmente el ícono */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el ícono */
+  }
+  
+  /* Ajusta el tamaño del ícono según sea necesario */
+  .password-toggle i {
+    font-size: 1.2rem;
+    color: #888; /* Color del ícono */
+  }
+  
+  
+  
+  .btn {
+    background-color: #be8f17;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 1px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-left: 18%;
+    transform: translateX(18%);
+  }
+  .mover-izquierda
+  {
+    margin-left: -5%;
+    transform: translateX(-5%);
+  }
+  .mover-derecha
+  {
+    margin-right: -80px;
+    transform: translateX(-80%);
+  }
+  
+  .btn:hover {
+    background-color: #555;
+  }
+  
+  .link {
+    color: #555;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .link:hover {
+    color: #be8f17;
+  }
+  .card-title
+  {
+    padding-bottom: 5%;
+    padding-left: 25%;
+    transform: translateX(25%);
+    transform: translateY(5%);
+  }
+  
+  
+  .card-title {
+    text-align: center; /* Centra el texto horizontalmente */
+    font-size: 24px; /* Tamaño del texto */
+    color: #be8f17; /* Color del texto */
+    padding: 10px; /* Espaciado interno */
+    border-radius: 5px; /* Borde redondeado */
+  }
+  
+  .card-title span {
+    font-weight: bold; /* Establece el peso de la fuente como negrita */
+  }
+  
+  .recuperar
+  {
+    margin-top: 10%;
+    margin-bottom: -8%;
+    transform: translateX(-8%);
+    transform: translateY(10%);
+  
+  
+  }
+  .recuperar > a:hover
+  {
+    color: #be8f17 !important;
+    cursor: pointer;
+  }
+  
+  /* Media queries */
+  
+  /* Extra pequeños dispositivos (teléfonos pequeños, landscape phones) */
+  @media only screen and (max-width: 576px) {
+    .card {
+      width: 95%;
+  
+    }
+  }
+  
+  /* Dispositivos pequeños (teléfonos, portrait tablets) */
+  @media only screen and (min-width: 576px) and (max-width: 667px) {
+    .card {
+      width: 90%;
+  
+    }
+  }
+  
+  /* Dispositivos pequeños a medianos */
+  @media only screen and (min-width: 668px) and (max-width: 768px) {
+    .card {
+      width: 100%;
+  
+    }
+  }
+  
+  /* Tablets pequeñas (portrait) */
+  @media only screen and (min-width: 769px) and (max-width: 1024px) {
+    .card {
+      width: 100%;
+  
+    }
+  }
+  
+  /* Tablets pequeñas a medianas (landscape) */
+  @media only screen and (min-width: 1025px) and (max-width: 1199px) {
+    .card {
+      width: 100%;
+  
+    }
+  }
+  
+  /* Tablets grandes y laptops */
+  @media only screen and (min-width: 1200px) and (max-width: 1365px) {
+    .card {
+      width: 100%;
+  
+    }
+  
+  }
+  
+  /* Laptops a pantallas más grandes */
+  @media only screen and (min-width: 1366px) and (max-width: 1440px) {
+    .card {
+      width: 100%;
+  
+    }
+    .card-title
+    {
+      padding-bottom: 5%;
+      padding-left: 13%;
+  
+    }
+  
+  }
+  
+  /* Pantallas de escritorio grandes */
+  @media only screen and (min-width: 1441px) and (max-width: 1600px) {
+    .card {
+      width: 95%;
+    }
+  }
+  
+  /* Pantallas de escritorio muy grandes */
+  @media only screen and (min-width: 1601px) and (max-width: 1920px) {
+    .card {
+      width: 100%;
+    }
+  }
+  
+  /* Pantallas de escritorio extremadamente grandes */
+  @media only screen and (min-width: 1921px) {
+    .card {
+      width: 100%;
+    }
+  }

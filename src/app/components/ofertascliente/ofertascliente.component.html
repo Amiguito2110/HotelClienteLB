@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{"Inicio-Bienvenido"|translate}} {{NombreCliente}}</title>
+    <!-- Materialize CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+
+<body>
+    <app-header></app-header>
+    <div class="contenido">
+        <div *ngIf="hayOfertas">
+            <div class="container">
+                <div class="row">
+                    <div *ngFor="let promocion of arregloPromociones">
+                        <div class="col s12 m6 l4">
+                            <div class="card">
+                                <div class="card-image">
+                                    <img src="../../../assets/images/carusel_cabana_1.webp" alt="Imagen de oferta">
+                                    <span class="card-label">{{"Oferta, ahora solo a"|translate}} ${{promocion.costoDesc}} {{"por
+                                        noche"|translate}}</span>
+                                </div>
+                                <div *ngIf="idioma == '1'">
+                                    <div class="card-content">
+                                        {{"Descripcion"|translate}}: {{habitacion.descripcion}}
+                                        <p>{{"Precio Normal"|translate}} ${{ promocion.Costo }}</p>
+                                        <button class="waves-effect btn-large white lighten-3 translate-button" style="background-color: transparent; border: 2px solid white; color: black;" (click)="obtenerDescripcion(promocion.IDHabitacion)">
+                                            {{ "Haz clic" | translate }}
+                                        </button>
+                                    </div>
+                                </div>
+                                <div *ngIf="idioma == '2'">
+                                    <div class="card-content">
+                                        {{"Descripcion"|translate}}: {{habitacion.description}}
+                                        <p>{{"Precio Normal"|translate}} ${{ promocion.Costo }}</p>
+                                        <button class="waves-effect btn-large white lighten-3 translate-button" style="background-color: transparent; border: 2px solid white; color: black;" (click)="obtenerDescripcion(promocion.IDHabitacion)">
+                                            {{ "Haz clic" | translate }}
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="reservar">
+                                    <a href="/home/reservaciones" class="btn-reservar waves-effect btn-large green darken-1 modal-close translate-button" style="color: white;">
+                                        {{ "Reservar" | translate }}
+                                           <!-- Botón de reservar -->
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div *ngIf="!hayOfertas">
+            <div class="no-ofertas-banner" *ngIf="!hayOfertas">
+                <div class="banner-content">
+                    <h2>¡{{"Lo sentimos"|translate}}!</h2>
+                    <p>{{"No hay ofertas disponibles en este momento"|translate}}.</p>
+                    <p>{{"Vuelve más tarde para descubrir nuestras increíbles ofertas"|translate}}.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <app-footer></app-footer>
+</body>
+
+</html>

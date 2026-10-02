@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link type="text/css" rel="stylesheet" href="/../../../assets/materialize/css/materialize.min.css/"
+    media="screen,projection" />
+  <style>
+    .centrado {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: fit-content;
+      /* Esto es opcional, dependiendo de cómo quieras centrar */
+    }
+  </style>
+</head>
+
+<body>
+  <div class="centrado">
+    <div class="card">
+      <div class="card-content">
+        <div>
+          <h3>{{'Mis Reservaciones'|translate}}</h3>
+          <div class="input-field">
+            <select #filtroReservaciones (change)="setBookingOption(filtroReservaciones.value)">
+              <option value="" disabled selected>{{"Seleccionar"|translate}}</option>
+              <option value="pasadas">{{"Reservaciones Pasadas"|translate}}</option>
+              <option value="futuras">{{"Reservaciones Futuras"|translate}}</option>
+              <option value="activas">{{"Reservaciones Activas"|translate}}</option>
+            </select>
+            <label>{{'Filtrar reservaciones por estado:'|translate}}</label>
+          </div>
+  
+          <table class="striped" *ngIf="bookings_selected.length > 0">
+            <thead>
+              <tr>
+                <th>{{'Fecha de Check-in'|translate}}</th>
+                <th>{{'Fecha de Check-out'|translate}}</th>
+                <th>{{'Estado Reserva'|translate}}</th>
+                <th>{{'Estado Pago'|translate}}</th>
+                <th>{{'DETALLES'|translate}}</th>
+              </tr>
+            </thead>
+            <tbody id="tablaReservaciones">
+              <tr *ngFor="let booking_list of bookings_selected">
+                <td>{{ booking_list.FechaEntrada }}</td>
+                <td>{{ booking_list.FechaSalida }}</td>
+                <td>{{ booking_list.EstadoReserva }}</td>
+                <td>{{ booking_list.EstadoPago }}</td>
+                <td>
+                  <a (click)="setBookingDetails(booking_list.IDReserva)" class="btn"><i
+                      class="material-icons">view_list</i></a>
+                </td>
+  
+                <td *ngIf="(booking_option == 'futuras' || booking_option == 'activas') && booking_list.EstadoReserva != 'Cancelado'">
+                  <a (click)="cancelarReservacion(booking_list.IDReserva, booking_list.FechaEntrada, booking_list.FechaSalida)"
+                    class="btn"><i class="material-icons">cancel</i></a>
+                </td>
+  
+              </tr>
+            </tbody>
+          </table>
+  
+  
+          <table class="striped" *ngIf="bookings_selected.length == 0">
+            <thead>
+              <tr>
+                <th>{{'Fecha de Check-in'|translate}}</th>
+                <th>{{'Fecha de Check-out'|translate}}</th>
+                <th>{{'Estado Reserva'|translate}}</th>
+                <th>{{'Estado Pago'|translate}}</th>
+                <th>{{'DETALLES'|translate}}</th>
+              </tr>
+            </thead>
+            <tbody id="tablaReservaciones">
+              <td> {{'SIN RESERVACIONES'|translate}} </td>
+            </tbody>
+          </table>
+  
+  
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+  <div id="MostrarDetalles" class="modal">
+    <div class="modal-content">
+      <h4>{{'Detalles de la reservación'|translate}}</h4>
+      <table class="striped">
+        <thead>
+          <tr>
+            <th>{{'Tipo de Habitación'|translate}}</th>
+            <th>{{'Cantidad'|translate}}</th>
+          </tr>
+        </thead>
+        <tbody id="tablaReservaciones">
+          <tr *ngFor="let booking_details of booking_details">
+            <td>{{ booking_details.TipoHabitacion }}</td>
+            <td>{{ booking_details.CantidadHabitaciones }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  <script type="text/javascript" src="/../../../assets/materialize/js/materialize.min.js/"></script>
+</body>
+
+</html>

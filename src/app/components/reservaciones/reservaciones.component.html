@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link type="text/css" rel="stylesheet" href="/../../../assets/materialize/css/materialize.min.css/"
+    media="screen,projection" />
+  <style>
+
+    .centrado {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: fit-content; 
+    }
+    html {
+      background-color: blanchedalmond;
+    }
+
+    .container {
+      margin-right: 0px;
+      /* margin-top: 50px; */
+    }
+
+    .page-footer {
+      background-color: #6d4c41;
+    }
+
+    nav {
+      height: 100px;
+    }
+
+    main {
+      flex: 1;
+    }
+
+    .card {
+      width: 500px;
+      position: sticky;
+
+    }
+
+    modal {
+      max-width: 80% !important;
+      width: auto !important;
+    }
+  </style>
+</head>
+
+<body>
+
+  
+
+    <!-- Contenido principal -->
+<div *ngIf="habitacionesDisponibles.length == 0" class="centrado">
+  <div class="container">
+    <div class="card">
+      <div class="card-content">
+        <h4>{{'Reservas'|translate}}</h4>
+        <!-- Formulario de Reservas -->
+        <form>
+          <!-- Fecha de Entrada -->
+          <div class="row">
+            <div class="input-field">
+              <input [(ngModel)]="fechaInicio" id="fechaIni" 
+                name="fechaIni" type="text">
+              <label class="active" for="fechaIni">{{'Fecha CheckIn'|translate}}</label>
+            </div>
+          </div>
+
+          <!-- Fecha de Salida -->
+          <div class="row">
+            <div class="input-field">
+              <input [(ngModel)]="fechaFinal" id="fechaFin" 
+                name="fechaFin" type="text" class="validate">
+              <label class="active" for="fechaFin">{{'Fecha CheckOut'|translate}}</label>
+            </div>
+          </div>
+
+          <!-- Botón de Envío -->
+          <div class="row">
+            <div class="col s12">
+              <button (click)="realizarConsulta()" 
+                class="btn waves-effect waves-light" type="submit"
+                name="action">{{'Consultar disponibilidad'|translate}}
+                <i class="material-icons right">send</i>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="habitacionesDisponibles.length > 0 && !flagCarrito" class="centrado">
+  <div class="card">
+    <div class="card-content">
+      <h5>{{'Habitaciones Disponibles:'|translate}}</h5>
+      <table class="responsive-table">
+        <thead>
+          <tr>
+            <th>{{'Tipo habitacion'|translate}}</th>
+            <th>{{'Capacidad'|translate}}</th>
+            <th>{{'Precio'|translate}}</th>
+            <th>{{'Seleccionar'|translate}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let habitacion of habitacionesDisponibles">
+            <td>{{ habitacion.TipoHabitacion }}</td>
+            <td>{{ habitacion.MaxHuespedes }}</td>
+            <td>${{ habitacion.Costo }}.00 MXN</td>
+            <td>
+              <input type="number" default="0" min="0" max="{{ habitacion.MinDisponibles }}" 
+                [(ngModel)]="habitacion.cantidadReservada" 
+                (change)="seleccionarHabitacion(habitacion, habitacion.cantidadReservada)">
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="row" *ngIf="!flagCarrito">
+        <div class="col s12">
+          <button (click)="guardar_en_carrito()" 
+            class="btn waves-effect waves-light" type="submit"
+            name="action">{{'Confirmar Habitaciones'|translate}}
+            <i class="material-icons right">send</i>
+          </button>
+        </div>
+      </div>
+
+      <div class="row" *ngIf="flagCarrito">
+        <div class="col s12">
+          <button (click)="modalHacerReservacion()" 
+            class="btn waves-effect waves-light" type="submit"
+            name="action">{{'Ingresar detalles'|translate}}
+            <i class="material-icons right">send</i>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<div *ngIf="habitacionesDisponibles.length > 0 && flagCarrito" class="centrado">
+  <div class="card">
+    <div class="card-content">
+      <h5>{{'Habitaciones Seleccionadas:'|translate}}</h5>
+      <table class="responsive-table">
+        <thead>
+          <tr>
+            <th>{{'Tipo de habitación'|translate}}</th>
+            <th>{{'Costo Unitario'|translate}}</th>
+            <th>{{'CantidadHabitaciones'|translate}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let habitacion of habitacionesSeleccionadas">
+            <td>{{ habitacion.TipoHabitacion }}</td>
+            <td>${{ habitacion.CostoUnitario }}.000 MXN</td>
+            <td>{{ habitacion.CantidadHabitaciones }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="row">
+        <div>
+          <h5>{{'Costo total:'|translate}} ${{CostoTotal}}.000 MXN</h5>
+          <p>{{'Precio para'|translate}} {{numNoches}} {{'noches.'|translate}}</p>
+        </div>
+      </div>
+
+      <div class="row" *ngIf="flagCarrito">
+        <div class="col s12">
+          <button (click)="modalHacerReservacion()" 
+            class="btn waves-effect waves-light" type="submit"
+            name="action">{{'Ingresar detalles'|translate}}
+            <i class="material-icons right">send</i>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div id="modalReservacion" class="modal">
+  <div class="modal-content">
+    <h4>{{'Reservar habitaciones'|translate}}</h4>
+    <form>
+      <div class="row">
+        <div class="input">
+          <input [(ngModel)]="fechaInicio" id="fechaIni" 
+            name="fechaIni" type="text" class="validate" disabled>
+          <label for="fechaIni">{{'Fecha CheckIn'|translate}}</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input">
+          <input [(ngModel)]="fechaFinal" id="fechaFin" 
+            name="fechaFin" type="text" class="validate" disabled>
+          <label for="fechaFin">{{'Fecha CheckOut'|translate}}</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input">
+          <select #horaLlegadaSelect 
+            (change)="setHora(horaLlegadaSelect.value)">
+            <option value="0" disabled selected>{{'Hora de llegada'|translate}}</option>
+            <option value="15:00:00">15:00:00</option>
+            <option value="16:00:00">16:00:00</option>
+            <option value="17:00:00">17:00:00</option>
+            <option value="18:00:00">18:00:00</option>
+            <option value="19:00:00">19:00:00</option>
+            <option value="20:00:00">20:00:00</option>
+            <option value="21:00:00">21:00:00</option>
+            <option value="22:00:00">22:00:00</option>
+            <option value="23:00:00">23:00:00</option>
+            <option value="00:00:00">{{'00:00:00(Siguiente día)'|translate}}</option>
+          </select>
+          <label for="HoraLlegada">{{'Hora de llegada'|translate}}</label>
+        </div>
+      </div>
+
+
+          <div class="row">
+            <div class="text">
+              <label for="fechaFin">{{"Sus demás datos son enviados automáticamente"|translate}}.</label>
+            </div>
+          </div>
+
+          <!-- Botón de Envío -->
+          <div class="row">
+            <div class="col s12">
+              <button (click)="hacer_reservacion_2()" 
+                class="btn waves-effect waves-light" type="submit"
+                name="action"> {{"Confirmar Reservación"|translate}}
+                <i class="material-icons right">booking</i>
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+  <script type="text/javascript" src="/../../../assets/materialize/js/materialize.min.js/"></script>
+</body>
+
+</html>

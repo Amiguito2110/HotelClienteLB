@@ -1,0 +1,207 @@
+.carousel {
+    margin-bottom: 40px;
+}
+
+.carousel .carousel-item {
+    width: 700px;
+    height: 400px;
+}
+
+.carousel .carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card {
+    width: 100%;
+}
+
+@media (min-width: 601px) {
+    .row {
+
+        margin-left: -8px;
+        /* Compensar el espacio entre las columnas */
+        margin-right: -8px;
+        /* Compensar el espacio entre las columnas */
+    }
+
+    .col {
+        flex: 0 0 calc(25% - 16px);
+        /* Ocupa un cuarto del ancho en pantallas medianas y grandes */
+        max-width: calc(25% - 16px);
+        /* Máximo ancho en pantallas medianas y grandes */
+        margin-bottom: 16px;
+        /* Espacio entre las filas */
+        box-sizing: border-box;
+        /* Incluir el padding en el ancho de la columna */
+    }
+}
+
+.card-reveal p {
+    text-align: justify;
+    /* Justificado */
+    /* Sombra */
+    font-family: 'Arial', sans-serif;
+    /* Tipo de letra */
+    font-size: 16px;
+    /* Tamaño de letra */
+    line-height: 1.6;
+    /* Espaciado entre líneas */
+}
+
+/* Estilos generales para las tarjetas */
+.card {
+    margin-bottom: 20px;
+    /* Espacio entre las tarjetas */
+    border-radius: 10px;
+    /* Bordes redondeados */
+    overflow: hidden;
+    /* Ocultar cualquier contenido que se desborde */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    /* Sombra suave */
+}
+
+/* Estilos para las imágenes de las tarjetas */
+.card .card-image img {
+    width: 100%;
+    /* Hacer que la imagen ocupe todo el ancho */
+    height: 200px;
+    /* Altura automática */
+    border-radius: 10px 10px 0 0;
+    /* Bordes redondeados solo en la parte superior */
+}
+
+/* Estilos para el título de las tarjetas */
+.card .card-title {
+    padding: 16px;
+    /* Espaciado interno */
+    font-size: 20px;
+    /* Tamaño de la fuente */
+    font-weight: bold;
+    /* Texto en negrita */
+    color: #ffffff;
+    /* Color del texto blanco */
+    background-color: #be8f17;
+    /* Fondo de color */
+    border-radius: 0 0 10px 10px;
+    /* Bordes redondeados solo en la parte inferior */
+}
+
+/* Estilos para el contenido de las tarjetas */
+.card .card-content {
+    padding: 16px;
+    /* Espaciado interno */
+}
+
+/* Estilos para el reveal de las tarjetas */
+.card .card-reveal {
+    background-color: #be8f17;
+    /* Fondo de color */
+    color: #ffffff;
+    /* Color del texto blanco */
+    border-radius: 10px;
+    /* Bordes redondeados */
+}
+
+/* Estilos para el título del reveal de las tarjetas */
+.card .card-reveal .card-title {
+    font-size: 20px;
+    /* Tamaño de la fuente */
+    font-weight: bold;
+    /* Texto en negrita */
+    padding: 16px;
+    /* Espaciado interno */
+}
+
+.card-content button {
+    background-color: #ffffff;
+    /* Color de fondo */
+    color: rgb(36, 114, 222);
+    /* Color del texto */
+    border: none;
+    /* Sin borde */
+    border-radius: 20px;
+    /* Bordes redondeados */
+    padding: 10px 20px;
+    /* Espaciado interno */
+    font-size: 16px;
+    /* Tamaño de la fuente */
+    cursor: pointer;
+    /* Cursor de apuntador */
+    transition: background-color 0.3s ease;
+    /* Transición suave del color de fondo */
+}
+
+.card-content button:hover {
+    font-size: 16px;
+    /* Tamaño de la fuente */
+    text-shadow: 0 0 0px rgb(94, 152, 233), 0 0 10px rgb(94, 152, 233);
+    /* Efecto de resplandor */
+    transition: 300ms all;
+
+}
+.carousel-slider
+{
+    width: 1300px !important;
+    height: 700px !important;
+    margin: 0px auto;
+    cursor: pointer;
+}
+.carousel-item
+{
+    width: 100% !important;
+    height: 100% !important;
+}
+
+#Mostrar_fotos
+{
+    width: 100% !important;
+    height: 1400px !important;
+    overflow: inherit;
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro semi-transparente */
+}
+.carousel-item img 
+{
+    width: 100% !important;
+    height: 100% !important;
+}
+.modal
+{
+    min-width:  1000px !important;
+    min-height: 1000px !important;
+    padding-top: 200px !important;
+    margin-top: -200px !important;
+    padding-bottom: 1000px !important;
+    
+}
+#Carrusel
+{
+    min-width: 600px !important;
+    min-height: 500px !important;
+}
+
+#Carrusel .carousel-item
+
+{
+    width: 800px !important;
+    height: 600px !important;
+    cursor: pointer;
+}
+.boton-x {
+    position: absolute;
+    top: 20px; /* Ajusta la posición superior */
+    right: 20px; /* Ajusta la posición derecha */
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    border: none;
+    width: 60px; /* Ancho del botón */
+    height: 60px; /* Alto del botón */
+    font-size: 24px; /* Tamaño de la "x" */
+    cursor: pointer;
+    z-index: 999; /* Asegura que el botón esté por encima de la imagen */
+  }
+  .cajita
+  {
+    margin-top: 30px;
+  }

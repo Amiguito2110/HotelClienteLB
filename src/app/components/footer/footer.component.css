@@ -1,0 +1,56 @@
+.page-footer {
+    background-color: #be8f17; /* Color de fondo del footer */
+    color: white; /* Color del texto del footer */
+    max-height: 150px;
+    margin-bottom: -18px !important;
+    
+}
+
+
+
+.page-footer h5 {
+    font-family: 'Arial Black', sans-serif; /* Fuente del texto de los títulos en el footer */
+    font-size: 24px; /* Tamaño del texto de los títulos en el footer */
+}
+
+.page-footer p {
+    font-family: 'Verdana', sans-serif; /* Fuente del texto de los párrafos en el footer */
+    font-size: 18px; /* Tamaño del texto de los párrafos en el footer */
+}
+
+.page-footer ul li a {
+    font-family: 'Verdana', sans-serif; /* Fuente del texto de los enlaces en el footer */
+    font-size: 18px; /* Tamaño del texto de los enlaces en el footer */
+}
+
+.page-footer ul li a:hover {
+    color: #ffffff; /* Color del texto de los enlaces en el footer al pasar el cursor */
+}
+.cuadrar {
+    width: 40px; /* Establece el ancho de la imagen */
+    height: 40px; /* Establece la altura de la imagen */
+    
+}
+.letras
+{
+    margin-bottom: 30px
+}
+
+.ubi
+
+{
+    margin-top: -20px;
+    margin-bottom: 25px;
+}
+.row
+{
+    margin-top: 0px;
+    padding-top: 0px;
+}
+
+.logos li
+{
+    display: block;
+    float: left ;
+    margin-right: 30px;
+}

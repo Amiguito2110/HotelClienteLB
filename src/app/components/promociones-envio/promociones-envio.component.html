@@ -1,0 +1,10 @@
+<div>
+    <h2>Enviar Promoción por Correo Electrónico</h2>
+    <div>
+      <label for="mensaje">Mensaje:</label><br>
+      <textarea id="mensaje" name="mensaje" rows="5" cols="50" [(ngModel)]="mensaje"></textarea>
+    </div>
+    <br>
+    <button (click)="enviarCorreo()" [disabled]="!mensaje">Enviar</button>
+  </div>
+  

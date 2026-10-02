@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{"Inicio-Bienvenido"|translate}} {{NombreUsuario}}</title>
+  <!-- Materialize CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+    .bandera.material-icons {
+      width: 24px; /* Ajusta el tamaño de la bandera según sea necesario */
+      height: 24px; /* Ajusta el tamaño de la bandera según sea necesario */
+    }
+  </style>
+</head>
+<body>
+  <div *ngIf="Rol == 1" class="rol-1">
+    <nav class="navbar">
+      <div class="nav-wrapper">
+        <div class="imgusuario">
+          <img class="card-img-top" src="../../../assets/images/logo_transparente.png" width="150" height="90">
+        </div>
+        <ul id="nav-mobile" class="right hide-on-med-and-down ligas">
+          <li><a href="/home/user_principal_ui"><i class="material-icons alinear">home</i><span class="texto">{{"Inicio"|translate}}</span></a></li>
+          <li><a href="/home/habitaciones_config"><i class="large material-icons">hotel</i><span>{{"Habitaciones"|translate}}</span></a></li>
+          <li><a href="/home/admin_config"><i class="large material-icons">group</i><span>{{"Recepcionistas"|translate}}</span></a></li>
+          <li><a href="/home/booking_menu"><i class="large material-icons">list</i><span>{{"Lista reservaciones"|translate}}</span></a></li>
+          <li><a href="/home/inventario_tienda"><i class="large material-icons">inventory</i><span>{{"Inventario"|translate}}</span></a></li>
+          <li><a href="/home/admin_reports"><i class="large material-icons">insert_chart</i><span>{{"Reportes"|translate}}</span></a></li>
+          <li><a href="/home/cliente_config"><i class="large material-icons">account_circle</i><span>{{"Cuenta"|translate}}</span></a></li>
+          <li><a href="/promociones"><i class="large material-icons">local_offer</i><span>{{"Generar promociones"|translate}}</span></a></li>
+          <li>
+            <a class="dropdown-trigger" href="#" data-target="dropdown3" style="line-height: 64px;">
+              <i class="material-icons">language</i>
+              <img *ngIf="idioma == '1'" src="../assets/images/bandMex.png"  alt="Bandera de México" class="bandera material-icons">
+              <img *ngIf="idioma == '2'" src="../assets/images/bandUSA.svg"  alt="Bandera de Estados Unidos" class="bandera material-icons">
+            </a>
+          </li>
+          <li>
+              <a href="#" onclick="logout()"><i class="material-icons alinear">logout</i><span class="texto">{{"Salir"|translate}}</span></a>
+          </li>
+        </ul>
+        <ul id="dropdown3" class="dropdown-content idioma-nav">
+          <li (click)="setIdioma(1)">
+              <a>
+                  <img src="../assets/images/bandMex.png" alt="Bandera de México" class="bandera material-icons">
+                  <span>{{"Español"|translate}}</span>
+              </a>
+          </li>
+          <li (click)="setIdioma(2)">
+              <a>
+                  <img src="../assets/images/bandUSA.svg" alt="Bandera de Estados Unidos" class="bandera material-icons">
+                  <span>{{"English"|translate}}</span>
+              </a>
+          </li>
+      </ul>
+      </div>
+    </nav>
+  </div>
+  <div *ngIf="Rol == 2" class="rol-2">
+    <nav class="navbar">
+      <div class="nav-wrapper">
+        <div class="imgusuario">
+          <img class="card-img-top" src="../../../assets/images/logo_transparente.png" width="150" height="90">
+        </div>
+        <li><a href="/home/user_principal_ui"><i class="material-icons alinear">home</i><span class="texto">{{"Inicio"|translate}}</span></a></li>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li><a href="/home/booking_menu" class="waves-effect waves-light btn centrar2">{{'Reservaciones'|translate}}<i
+                class="material-icons right">book</i></a></li>
+          <li><a href="/home/inventario_tienda"><i
+                class="large material-icons">inventory</i><span>{{'Inventario'|translate}}</span></a></li>
+          <li><a href="#" onclick="logout()"><i class="material-icons alinear">logout</i><span
+                class="texto">{{'Salir'|translate}}</span></a></li>
+          <li><a class="dropdown-trigger" href="#" data-target="dropdown3"><i
+            class="material-icons">language</i>
+            <img *ngIf="idioma == '1'" src="../assets/images/bandMex.png"  alt="Bandera de México" class="bandera material-icons">
+            <img *ngIf="idioma == '2'" src="../assets/images/bandUSA.svg"  alt="Bandera de Estados Unidos" class="bandera material-icons">  
+          </a></li>
+        </ul>
+        <ul id="dropdown3" class="dropdown-content idioma-nav">
+          <li (click)="setIdioma(1)">
+              <a>
+                  <img src="../assets/images/bandMex.png" alt="Bandera de México" class="bandera material-icons">
+                  <span>{{"Español"|translate}}</span>
+              </a>
+          </li>
+          <li (click)="setIdioma(2)">
+              <a>
+                  <img src="../assets/images/bandUSA.svg" alt="Bandera de Estados Unidos" class="bandera material-icons">
+                  <span>{{"English"|translate}}</span>
+              </a>
+          </li>
+      </ul>
+      </div>
+    </nav>
+  </div>
+  <div *ngIf="Rol == 3" class="rol-3">
+    <nav class="navbar">
+      <div class="nav-wrapper">
+        <div class="imgusuario">
+          <img class="card-img-top" src="../../../assets/images/logo_transparente.png" width="150" height="90">
+        </div>
+        <!--<a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>-->
+        <ul id="nav-mobile" class="right hide-on-med-and-down centrar">
+          <li><a href="/ofertascliente"><i class="material-icons">local_offer</i><span class="texto">{{"Ofertas"|translate}}</span></a>
+          </li>
+          <li><a href="/home/user_principal_ui"><i class="material-icons alinear">home</i><span class="texto">{{"Inicio"|translate}}</span></a></li>
+          <li><a href="/home/reservaciones" class="waves-effect waves-light btn centrar2">{{"Nueva reservacion"|translate}}<i
+                class="material-icons right">book</i></a></li>
+          <li><a href="/home/cliente_bookings"><i class="material-icons alinear">list</i><span
+                class="texto">{{"Historial"|translate}}</span></a></li>
+          <li><a href="/home/carrito"><i class="material-icons alinear">shopping_cart</i><span
+                class="texto">{{"Carrito"|translate}}</span></a></li>
+          <li><a href="/home/cliente_config"><i class="material-icons">account_circle</i><span
+                class="texto">{{"Cuenta"|translate}}</span></a></li>
+          <!-- Botón desplegable de idioma -->
+          <li style="margin-top: 10px;">
+            <a class="dropdown-trigger" href="#" data-target="dropdown3" style="line-height: 64px;"><i
+              class="material-icons">language</i>
+              <img *ngIf="idioma == '1'" src="../assets/images/bandMex.png"  alt="Bandera de México" class="bandera material-icons">
+              <img *ngIf="idioma == '2'" src="../assets/images/bandUSA.svg"  alt="Bandera de Estados Unidos" class="bandera material-icons">  
+           </a>
+          </li>
+          <li>
+            <a href="#" onclick="logout()"><i class="material-icons alinear">logout</i><span
+                class="texto">{{"Salir"|translate}}</span></a>
+          </li>
+        </ul>
+        <ul id="dropdown3" class="dropdown-content idioma-nav">
+          <li (click)="setIdioma(1)">
+              <a>
+                  <img src="../assets/images/bandMex.png" alt="Bandera de México" class="bandera material-icons">
+                  <span>{{"Español"|translate}}</span>
+              </a>
+          </li>
+          <li (click)="setIdioma(2)">
+              <a>
+                  <img src="../assets/images/bandUSA.svg" alt="Bandera de Estados Unidos" class="bandera material-icons">
+                  <span>{{"English"|translate}}</span>
+              </a>
+          </li>
+      </ul>
+      </div>
+    </nav>
+  </div>
+</body>
+</html>

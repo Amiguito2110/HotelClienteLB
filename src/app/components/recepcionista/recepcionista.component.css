@@ -1,0 +1,126 @@
+.navbar {
+    position: relative !important;
+    height: 120px !important;
+    background-color: #be8f17 !important; /* Color de fondo del navbar */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra */
+}
+.logo {
+    height: 64px; /* Ajusta la altura según necesites */
+}
+
+.navbar .brand-logo img {
+    margin-top: 5px;
+    height: 110px; /* Ajusta la altura según necesites */
+    width: 180px;
+    margin-left: 20px;
+}
+
+.navbar ul li a {
+    color: #553a3a; /* Color del texto */
+    display: flex; /* Activa el modelo de caja flexible */
+    align-items: center; /* Centra verticalmente el contenido */
+    padding: 0 10px; /* Ajusta el padding horizontal */
+}
+
+
+
+.navbar ul li a i {
+    font-size: 1.8rem; /* Tamaño del ícono */
+    margin-right: 5px; /* Espacio entre el ícono y el texto */
+}
+
+.texto {
+    flex: 2; /* Permite que el texto ocupe todo el espacio disponible */
+
+}
+.centrar
+{
+    line-height: 120px;
+}
+.centrar2
+{
+    margin-top: 35px;
+    background-color: #be8f17; /* Color de fondo */
+    color: white !important; /* Color del texto */
+
+
+}
+
+.navbar ul li a {
+    color: #553a3a; /* Color del texto */
+    display: flex; /* Activa el modelo de caja flexible */
+    align-items: center; /* Centra verticalmente el contenido */
+    padding: 0 10px; /* Ajusta el padding horizontal */
+    transition:  300ms; /* Transición suave para el color de fondo */
+}
+
+.navbar ul li a:hover {
+    background-color: #be8f17; /* Color de fondo al pasar el cursor */
+    color: white;
+    font-size: 17px;
+}
+.navbar ul li {
+    display: flex;
+    align-items: center;
+}
+
+.navbar ul li .bienvenido {
+    margin-left: 5px;
+}
+.mensaje1 {
+    color: white; /* Color del texto */
+    margin-top: -90px;
+    font-size: 30px; /* Tamaño de letra */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra de texto */
+    font-family: Arial, sans-serif; /* Estilo de letra */
+}
+.imgusuario
+{
+    display: block;
+    float: left;
+}
+.imgusuario >p
+{
+    margin-top: -110px;
+    margin-left: 80%;
+    line-height: 40px;
+}
+.card-img-top
+{
+    margin-top: 10px;
+    margin-left: 20px;
+}
+.ligas
+{
+    display: block;
+    margin-top: 20px;
+}
+
+.cuadrar {
+    width: 40px; /* Establece el ancho de la imagen */
+    height: 40px; /* Establece la altura de la imagen */
+    
+}
+.letras
+{
+    margin-bottom: 30px
+}
+
+.ubi
+
+{
+    margin-top: -20px;
+    margin-bottom: 25px;
+}
+.row
+{
+    margin-top: 0px;
+    padding-top: 0px;
+}
+
+.logos li
+{
+    display: block;
+    float: left ;
+    margin-right: 30px;
+}

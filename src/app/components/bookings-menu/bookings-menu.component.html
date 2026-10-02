@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link type="text/css" rel="stylesheet" href="/../../../assets/materialize/css/materialize.min.css/"
+    media="screen,projection" />
+  <style>
+    .centrado {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: fit-content;
+      /* Esto es opcional, dependiendo de cómo quieras centrar */
+    }
+
+    html {
+      background-color: blanchedalmond;
+    }
+
+    main {
+      flex: 1;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="centrado">
+    <div class="container">
+      <div class="card">
+        <div class="card-content">
+          <h2>{{"Control de Reservaciones"|translate}}</h2>
+          <div class="row">
+            <div class="input-field col s8">
+              <input (click)="setFechaReserva()" type="text" id="datepicker" class="datepicker">
+              <label for="datepicker">{{"Selecciona el día"|translate}}</label>
+            </div>
+            <div class="col s4">
+              <a (click)="MostrarReservas()" class="btn">{{"MOSTRAR"|translate}}</a>
+            </div>
+          </div>
+          <table class="striped">
+            <thead>
+              <tr>
+                <th>{{"Nombre del Huésped"|translate}}</th>
+                <th>{{"Hora de Llegada"|translate}}</th>
+                <th>{{"Fecha Llegada"|translate}}</th>
+                <th>{{"Fecha Salida"|translate}}</th>
+                <th>{{"Número de Teléfono"|translate}}</th>
+                <th>{{"Estado de la Reservación"|translate}}</th>
+                <th>{{"Estado del Pago"|translate}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let dato of DatosTabla">
+                <td>{{ dato.NombreCompleto }}</td>
+                <td>{{ dato.HoraLlegada }}</td>
+                <td>{{ dato.FechaEntrada }}</td>
+                <td>{{ dato.FechaSalida }}</td>
+                <td>{{ dato.NumeroTelefono }}</td>
+                <td>{{ dato.EstadoReserva }}</td>
+                <td>{{ dato.EstadoPago }}</td>
+                <td> <a (click)="setBookingDetails(dato.IDReserva)" class="btn"><i
+                      class="material-icons">view_list</i></a>
+                </td>
+                <td>
+                  <a (click)="modalActualizarDatos(dato.IDReserva)" class="btn"><i class="material-icons">edit</i></a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div id="modalActualizarReservacion" class="modal">
+    <div class="modal-content">
+      <h4>{{"Actualizar Reservación"|translate}}</h4>
+      <div class="input-field">
+        <select #estadoReserva (change)="setEstadoReserva(estadoReserva.value)">
+          <option value="" disabled selected>{{"Seleccionar Estado de Reserva"|translate}}</option>
+          <option value="Reservado" selected>{{"Reservado"|translate}}</option>
+          <option value="Check-In">{{"Check-In"|translate}}</option>
+          <option value="Check-Out">{{"Check-Out"|translate}}</option>
+          <option value="Cancelado">{{"Cancelado"|translate}}</option>
+        </select>
+        <label>{{"Estado de Reserva"|translate}}</label>
+      </div>
+  
+      <div class="input-field">
+        <select #estadoPago (change)="setEstadoPago(estadoPago.value)">
+          <option value="" disabled selected>{{"Seleccionar Estado de Pago"|translate}}</option>
+          <option value="Pagado">{{"Pagado"|translate}}</option>
+          <option value="Pendiente" selected>{{"Pendiente"|translate}}</option>
+          <option value="Cancelado">{{"Cancelado"|translate}}</option>
+        </select>
+        <label>{{"Estado de Pago"|translate}}</label>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <a class="waves-effect waves-green btn" (click)="guardarCambios()">{{"Guardar Cambios"|translate}}</a>
+    </div>
+    <div class="modal-footer">
+      <a class="modal-close waves-effect waves-green btn">{{"Cancelar"|translate}}</a>
+    </div>
+  </div>
+  
+  <div id="MostrarDetalles" class="modal">
+    <div class="modal-content">
+      <h4>{{"Detalles de la reservación"|translate}}</h4>
+      <table class="striped">
+        <thead>
+          <tr>
+            <th>{{"Tipo de Habitación"|translate}}</th>
+            <th>{{"Cantidad"|translate}}</th>
+          </tr>
+        </thead>
+        <tbody id="tablaReservaciones">
+          <tr *ngFor="let booking_details of booking_details">
+            <td>{{ booking_details.TipoHabitacion }}</td>
+            <td>{{ booking_details.CantidadHabitaciones }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  <script type="text/javascript" src="/../../../assets/materialize/js/materialize.min.js/"></script>
+</body>
+
+</html>

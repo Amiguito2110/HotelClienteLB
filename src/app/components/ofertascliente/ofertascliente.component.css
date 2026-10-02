@@ -1,0 +1,241 @@
+.navbar {
+    
+    height: 120px !important;
+    background-color: #be8f17 !important; /* Color de fondo del navbar */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra */
+}
+.logo {
+    height: 64px; /* Ajusta la altura según necesites */
+}
+
+.navbar .brand-logo img {
+    margin-top: 5px;
+    height: 110px; /* Ajusta la altura según necesites */
+    width: 180px;
+    margin-left: 20px;
+}
+
+.navbar ul li a {
+    color: #553a3a; /* Color del texto */
+    display: flex; /* Activa el modelo de caja flexible */
+    align-items: center; /* Centra verticalmente el contenido */
+    padding: 0 10px; /* Ajusta el padding horizontal */
+}
+
+
+
+.navbar ul li a i {
+    font-size: 1.8rem; /* Tamaño del ícono */
+    margin-right: 5px; /* Espacio entre el ícono y el texto */
+}
+
+.texto {
+    flex: 2; /* Permite que el texto ocupe todo el espacio disponible */
+
+}
+.centrar
+{
+    line-height: 120px;
+}
+.centrar2
+{
+    margin-top: 35px;
+    background-color: #be8f17; /* Color de fondo */
+    color: white !important; /* Color del texto */
+
+
+}
+
+.navbar ul li a {
+    color: #553a3a; /* Color del texto */
+    display: flex; /* Activa el modelo de caja flexible */
+    align-items: center; /* Centra verticalmente el contenido */
+    padding: 0 10px; /* Ajusta el padding horizontal */
+    transition:  300ms; /* Transición suave para el color de fondo */
+}
+
+.navbar ul li a:hover {
+    background-color: #be8f17; /* Color de fondo al pasar el cursor */
+    color: white;
+    font-size: 17px;
+}
+.navbar ul li {
+    display: flex;
+    align-items: center;
+}
+
+.navbar ul li .bienvenido {
+    margin-left: 5px;
+}
+.mensaje1 {
+    color: white; /* Color del texto */
+    margin-top: -90px;
+    font-size: 30px; /* Tamaño de letra */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra de texto */
+    font-family: Arial, sans-serif; /* Estilo de letra */
+}
+.imgusuario
+{
+    display: block;
+    float: left;
+}
+.imgusuario >p
+{
+    margin-top: -110px;
+    margin-left: 80%;
+    line-height: 40px;
+}
+.card-img-top
+{
+    margin-top: 10px;
+    margin-left: 20px;
+}
+.ligas
+{
+    display: block;
+    margin-top: 20px;
+}
+
+.page-footer {
+    background-color: #be8f17; /* Color de fondo del footer */
+    color: white; /* Color del texto del footer */
+    max-height: 140px;
+}
+
+.page-footer h5 {
+    font-family: 'Arial Black', sans-serif; /* Fuente del texto de los títulos en el footer */
+    font-size: 24px; /* Tamaño del texto de los títulos en el footer */
+}
+
+.page-footer p {
+    font-family: 'Verdana', sans-serif; /* Fuente del texto de los párrafos en el footer */
+    font-size: 18px; /* Tamaño del texto de los párrafos en el footer */
+}
+
+.page-footer ul li a {
+    font-family: 'Verdana', sans-serif; /* Fuente del texto de los enlaces en el footer */
+    font-size: 18px; /* Tamaño del texto de los enlaces en el footer */
+}
+
+.page-footer ul li a:hover {
+    color: #ffffff; /* Color del texto de los enlaces en el footer al pasar el cursor */
+}
+.cuadrar {
+    width: 40px; /* Establece el ancho de la imagen */
+    height: 40px; /* Establece la altura de la imagen */
+    
+}
+.letras
+{
+    margin-bottom: 30px
+}
+
+.ubi
+
+{
+    margin-top: -20px;
+    margin-bottom: 25px;
+}
+.row
+{
+    margin-top: 0px;
+    padding-top: 0px;
+}
+
+.logos li
+{
+    display: block;
+    float: left ;
+    margin-right: 30px;
+}
+.no-ofertas-banner {
+    background-color: #f44336; /* Color de fondo del banner */
+    color: white; /* Color del texto */
+    padding: 20px; /* Espaciado interno del banner */
+    text-align: center; /* Alineación del texto al centro */
+    top: 0; /* Posición arriba */
+    left: 0; /* Posición izquierda */
+    width: 100%; /* Ancho del banner */
+    z-index: 9999; /* Asegura que el banner esté por encima de otros elementos */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra del banner */
+}
+
+.banner-content {
+    max-width: 600px; /* Ancho máximo del contenido del banner */
+    margin: 0 auto; /* Centrar el contenido horizontalmente */
+}
+
+.no-ofertas-banner h2 {
+    font-size: 32px; /* Tamaño del título */
+    margin-bottom: 10px; /* Espaciado inferior del título */
+}
+
+.no-ofertas-banner p {
+    font-size: 18px; /* Tamaño del texto */
+    margin-bottom: 8px; /* Espaciado inferior del texto */
+}
+
+
+
+
+
+
+.card {
+    border-radius: 8px; /* Bordes redondeados */
+    overflow: hidden; /* Para que la etiqueta roja esté dentro de la tarjeta */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    transition: transform 0.3s ease-in-out; /* Transición suave al hacer hover */
+  }
+  
+  .card:hover {
+    transform: translateY(-5px); /* Efecto de levantamiento al hacer hover */
+  }
+  
+  .card-image {
+    position: relative; /* Para que la etiqueta roja se posicione correctamente */
+  }
+  
+  .card-image img {
+    width: 100%; /* Imagen ocupa todo el ancho */
+    height: auto; /* Altura automática */
+  }
+  
+  .card-label {
+    position: absolute;
+    top: 10px; /* Posición desde arriba */
+    right: 10px; /* Posición desde la derecha */
+    background-color: red; /* Color de fondo rojo */
+    color: white; /* Color del texto blanco */
+    padding: 4px 8px; /* Espaciado interno */
+    border-radius: 4px; /* Bordes redondeados */
+  }
+  
+  .card-content {
+    padding: 16px; /* Espaciado interno */
+  }
+  
+  .card-content p {
+    margin: 0; /* Elimina el margen del párrafo */
+  }
+  .btn-reservar {
+    bottom: 10px; /* Posición desde abajo */
+    right: 10px; /* Posición desde la derecha */
+    background-color: #4caf50; /* Color de fondo verde */
+    color: white; /* Color del texto blanco */
+    padding: 8px 16px; /* Espaciado interno */
+    border: none; /* Sin borde */
+    border-radius: 4px; /* Bordes redondeados */
+    text-transform: uppercase; /* Texto en mayúsculas */
+    font-weight: bold; /* Negrita */
+    text-decoration: none; /* Sin subrayado */
+    transition: background-color 0.3s ease; /* Transición suave al hacer hover */
+  }
+  
+  .btn-reservar:hover {
+    background-color: #45a049; /* Color de fondo verde más oscuro al hacer hover */
+  }
+  .reservar
+  {
+    margin-left: 220px;
+    margin-bottom: 20px;
+  }

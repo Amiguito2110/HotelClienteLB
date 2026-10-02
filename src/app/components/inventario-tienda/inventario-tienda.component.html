@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link type="text/css" rel="stylesheet" href="/../../../assets/materialize/css/materialize.min.css/"
+    media="screen,projection" />
+  <style>
+    .centrado {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: fit-content;
+    }
+
+    html {
+      background-color: blanchedalmond;
+    }
+  </style>
+</head>
+
+<body>
+  
+  <div class="centrado">
+    <div class="container">
+      <div class="card">
+        <div class="card-content">
+          <h2>{{"Listado de productos en inventario"|translate}}</h2>
+          <div class="center-align" style="margin-bottom: 20px;">
+            <button class="btn" style="margin-right: 10px;" (click)="abrirModalCrearProducto()">{{"Agregar Nuevo Producto"|translate}}</button>
+            <button class="btn" (click)="abrirModalCrearCategoria()">{{"Agregar Categoria"|translate}}</button>
+          </div>
+        
+        
+          <div class="row">
+          </div>
+          <table class="striped">
+            <thead>
+              <tr>
+                <th>{{"Nombre Producto"|translate}}</th>
+                <th>{{"Precio Venta"|translate}}</th>
+                <th>{{"Precio Compra"|translate}}</th>
+                <th>{{"Cantidad Disponible"|translate}}</th>
+                <th>{{"Categoría"|translate}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let producto of productos | paginate: { itemsPerPage: 5, currentPage: p }">
+                <td>{{ producto.nombre_producto }}</td>
+                <td>{{ producto.precio_venta }}</td>
+                <td>{{ producto.precio_compra }}</td>
+                <td>{{ producto.cantidad_disponible }}</td>
+                <td>{{ producto.nombre_categoria }}</td>
+                <td><a href="javascript: void(0);" class="space" (click)="actualizarProducto(producto)">
+                    <i class="material-icons">edit</i></a>
+                </td>
+                <td>
+                  <button class="btn red" (click)="eliminarProducto(producto.id)">
+                    <i class="material-icons">delete</i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+  <div id="editarProductoModal" class="modal" name="editDates">
+    <div class="modal-content">
+      <h4>{{"Editar Información"|translate}}</h4>
+      <form>
+        <div class="input-field">
+          <input [(ngModel)]="producto.nombre_producto" id="nombre_producto" type="text" class="validate"
+            name="nombre_producto">
+          <label class="active" for="nombre_producto">{{"Nombre Producto"|translate}}</label>
+        </div>
+        <div class="input-field">
+          <input [(ngModel)]="producto.precio_venta" id="precio_venta" type="number" class="validate" name="precio_venta">
+          <label class="active" for="precio_venta">{{"Precio Venta"|translate}}</label>
+        </div>
+        <div class="input-field">
+          <input [(ngModel)]="producto.precio_compra" id="precio_compra" type="number" class="validate" name="precio_compra">
+          <label class="active" for="precio_compra">{{"Precio Compra"|translate}}</label>
+        </div>
+        <div class="input-field">
+          <input [(ngModel)]="producto.cantidad_disponible" id="cantidad_disponible" type="number" class="validate" name="cantidad_disponible">
+          <label class="active" for="cantidad_disponible">{{"Cantidad Disponible"|translate}}</label>
+        </div>
+        <div class="input-field">
+          <input [(ngModel)]="producto.nombre_categoria" id="nombre_categoria" type="text" class="validate" name="nombre_categoria">
+          <label class="active" for="nombre_categoria">{{"Nombre Categoría"|translate}}</label>
+        </div>
+        <button (click)="guardarCambiosProducto(producto.id)" class="btn waves-effect waves-light" type="submit" name="action">{{"Guardar Cambios"|translate}}</button>
+      </form>
+    </div>
+  </div>
+  
+  <div id="crearProductoModal" class="modal">
+    <div class="modal-content">
+      <h4>{{"Nuevo Producto"|translate}}</h4>
+      <form>
+        <div class="input-field">
+          <input [(ngModel)]="producto.nombre_producto" id="nombre_productoNuevo" type="text" class="validate"
+            name="nombre_productoNuevo">
+          <label class="active" for="nombre_productoNuevo">{{"Nombre Producto"|translate}}</label>
+        </div>
+        <div class="input-field">
+          <input [(ngModel)]="producto.precio_venta" id="precio_ventaNuevo" type="number" class="validate" name="precio_ventaNuevo">
+          <label class="active" for="precio_ventaNuevo">{{"Precio Venta"|translate}}</label>
+        </div>
+        <div class="input-field">
+          <input [(ngModel)]="producto.precio_compra" id="precio_compraNuevo" type="number" class="validate" name="precio_compraNuevo">
+          <label class="active" for="precio_compraNuevo">{{"Precio Compra"|translate}}</label>
+        </div>
+        <div class="input-field">
+          <input [(ngModel)]="producto.cantidad_disponible" id="cantidad_disponibleNuevo" type="number" class="validate" name="cantidad_disponibleNuevo">
+          <label class="active" for="cantidad_disponibleNuevo">{{"Cantidad Disponible"|translate}}</label>
+        </div>
+        <div class="input-field">
+          <input [(ngModel)]="producto.nombre_categoria" id="nombre_categoriaNuevo" type="text" class="validate" name="nombre_categoriaNuevo">
+          <label class="active" for="nombre_categoriaNuevo">{{"Nombre Categoría"|translate}}</label>
+        </div>          
+        <button (click)="crearProducto(producto)" class="btn waves-effect waves-light" type="submit" name="action">{{"Crear Producto"|translate}}</button>
+      </form>
+    </div>
+  </div>
+  
+  <div id="crearCategoriaModal" class="modal">
+    <div class="modal-content">
+        <h4>{{"Nueva Categoría"|translate}}</h4>
+        <form (submit)="crearCategoria(category)">
+            <div class="input-field">
+                <input [(ngModel)]="category.nombre_categoria" id="nombre_categoria" type="text" class="validate" name="nombre_categoria">
+                <label for="nombre_categoria">{{"Nombre Categoría"|translate}}</label>
+            </div>
+            <button class="btn waves-effect waves-light" type="submit" name="action">{{"Crear Categoría"|translate}}</button>
+        </form>
+    </div>
+</div>
+
+  <script type="text/javascript" src="/../../../assets/materialize/js/materialize.min.js/"></script>
+</body>
+</html>

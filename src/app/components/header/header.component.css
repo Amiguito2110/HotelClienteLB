@@ -1,0 +1,405 @@
+/*ESTILOS PARA LA CABEZERA DEL ROL-1 ->ADMINISTRADOR*/
+.rol-1 .navbar {
+    height: 120px !important;
+    background-color: #be8f17 !important;
+    /* Color de fondo del navbar */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Sombra */
+}
+
+.rol-1 .navbar .logo {
+    height: 64px;
+    /* Ajusta la altura según necesites */
+}
+
+.rol-1 .navbar .navbar .brand-logo img {
+    margin-top: 5px;
+    height: 110px;
+    /* Ajusta la altura según necesites */
+    width: 180px;
+    margin-left: 60px;
+}
+
+.rol-1 .navbar ul li a {
+    color: #553a3a;
+    /* Color del texto */
+    display: flex;
+    /* Activa el modelo de caja flexible */
+    align-items: center;
+    /* Centra verticalmente el contenido */
+    padding: 0 10px;
+    /* Ajusta el padding horizontal */
+}
+
+.rol-1 .navbar ul li a i {
+    font-size: 1.8rem;
+    /* Tamaño del ícono */
+    margin-right: 5px;
+    /* Espacio entre el ícono y el texto */
+}
+
+.rol-1 .navbar ul li a.texto {
+    flex: 2;
+    /* Permite que el texto ocupe todo el espacio disponible */
+}
+
+.rol-1 .navbar ul li a.centrar {
+    line-height: 120px;
+}
+
+.rol-1 .navbar ul li a.centrar2 {
+    margin-top: 35px;
+    background-color: #be8f17;
+    /* Color de fondo */
+    color: white !important;
+    /* Color del texto */
+}
+
+.rol-1 .navbar ul li a {
+    transition: 300ms;
+    /* Transición suave para el color de fondo */
+}
+
+.rol-1 .navbar ul li a:hover {
+    background-color: #be8f17;
+    /* Color de fondo al pasar el cursor */
+    color: white;
+    font-size: 17px;
+}
+
+.rol-1 .navbar ul li {
+    display: flex;
+    align-items: center;
+}
+
+.rol-1 .navbar ul li .bienvenido {
+    margin-left: 5px;
+}
+
+.rol-1 .navbar .card-img-top {
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+.rol-1 .navbar .ligas {
+    display: block;
+    margin-top: 20px;
+}
+
+.rol-1 .navbar .mensaje1 {
+    color: white;
+    /* Color del texto */
+    margin-top: -90px;
+    font-size: 30px;
+    /* Tamaño de letra */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    /* Sombra de texto */
+    font-family: Arial, sans-serif;
+    /* Estilo de letra */
+
+    
+}
+
+.rol-1 .navbar .imgusuario {
+    display: block;
+    float: left;
+    
+}
+
+.rol-1 .navbar .imgusuario>p {
+    margin-top: -110px;
+    margin-left: 50%;
+    line-height: 40px;
+    width: 400px;
+}
+
+.rol-1 .navbar .cuadrar {
+    width: 40px;
+    /* Establece el ancho de la imagen */
+    height: 40px;
+    /* Establece la altura de la imagen */
+}
+
+.rol-1 .navbar .letras {
+    margin-bottom: 30px;
+}
+
+.rol-1 .navbar .ubi {
+    margin-top: -20px;
+    margin-bottom: 25px;
+}
+
+.rol-1 .navbar .row {
+    margin-top: 0px;
+    padding-top: 0px;
+}
+
+.rol-1 .navbar .logos li {
+    display: block;
+    float: left;
+    margin-right: 30px;
+}
+
+
+/*ESTILOS PARA LA CABEZERA DEL ROL-2  -> RECEPCIONISTA*/
+.rol-2 .navbar {
+    position: relative !important;
+    height: 120px !important;
+    background-color: #be8f17 !important;
+    /* Color de fondo del navbar */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Sombra */
+}
+
+.rol-2 .navbar .logo {
+    height: 64px;
+    /* Ajusta la altura según necesites */
+}
+
+.rol-2 .navbar .brand-logo img {
+    margin-top: 5px;
+    height: 110px;
+    /* Ajusta la altura según necesites */
+    width: 180px;
+    margin-left: 20px;
+}
+
+.rol-2 .navbar ul li a {
+    color: #553a3a;
+    /* Color del texto */
+    display: flex;
+    /* Activa el modelo de caja flexible */
+    align-items: center;
+    /* Centra verticalmente el contenido */
+    padding: 0 10px;
+    /* Ajusta el padding horizontal */
+}
+
+.rol-2 .navbar ul li a i {
+    font-size: 1.8rem;
+    /* Tamaño del ícono */
+    margin-right: 5px;
+    /* Espacio entre el ícono y el texto */
+}
+
+.rol-2 .navbar ul li a.texto {
+    flex: 2;
+    /* Permite que el texto ocupe todo el espacio disponible */
+}
+
+.rol-2 .navbar ul li a:hover {
+    background-color: #be8f17;
+    /* Color de fondo al pasar el cursor */
+    color: white;
+    font-size: 17px;
+    transition: 300ms;
+    /* Transición suave para el color de fondo */
+}
+
+.rol-2 .navbar ul li {
+    display: flex;
+    align-items: center;
+}
+
+.rol-2 .navbar ul li .bienvenido {
+    margin-left: 5px;
+}
+
+.rol-2 .navbar .mensaje1 {
+    color: white;
+    /* Color del texto */
+    margin-top: -90px;
+    font-size: 30px;
+    /* Tamaño de letra */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    /* Sombra de texto */
+    font-family: Arial, sans-serif;
+    /* Estilo de letra */
+}
+
+.rol-2 .navbar .imgusuario {
+    display: block;
+    float: left;
+}
+
+.rol-2 .navbar .imgusuario>p {
+    margin-top: -110px;
+    margin-left: 80%;
+    line-height: 40px;
+}
+
+.rol-2 .navbar .imgusuario .card-img-top {
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+.rol-2 .navbar .ligas {
+    display: block;
+    margin-top: 20px;
+}
+
+.rol-2 .navbar .cuadrar {
+    width: 40px;
+    /* Establece el ancho de la imagen */
+    height: 40px;
+    /* Establece la altura de la imagen */
+}
+
+.rol-2 .navbar .letras {
+    margin-bottom: 30px;
+}
+
+.rol-2 .navbar .ubi {
+    margin-top: -20px;
+    margin-bottom: 25px;
+}
+
+.rol-2 .navbar .row {
+    margin-top: 0px;
+    padding-top: 0px;
+}
+
+.rol-2 .navbar .logos li {
+    display: block;
+    float: left;
+    margin-right: 30px;
+}
+
+/*ESTILOS PARA LA CABEZERA DEL ROL-3 -> CLIENTE*/
+.rol-3 .navbar {
+    height: 120px !important;
+    background-color: #be8f17 !important;
+    /* Color de fondo del navbar */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Sombra */
+}
+
+.rol-3 .navbar .logo {
+    height: 64px;
+    /* Ajusta la altura según necesites */
+}
+
+.rol-3 .navbar .brand-logo img {
+    margin-top: 5px;
+    height: 110px;
+    /* Ajusta la altura según necesites */
+    width: 180px;
+    margin-left: 20px;
+}
+
+.rol-3 .navbar ul li a {
+    color: #553a3a;
+    /* Color del texto */
+    display: flex;
+    /* Activa el modelo de caja flexible */
+    align-items: center;
+    /* Centra verticalmente el contenido */
+    padding: 0 10px;
+    /* Ajusta el padding horizontal */
+}
+
+.rol-3 .navbar ul li a i {
+    font-size: 1.8rem;
+    /* Tamaño del ícono */
+    margin-right: 5px;
+    /* Espacio entre el ícono y el texto */
+}
+
+.rol-3 .navbar ul li a.texto {
+    flex: 2;
+    /* Permite que el texto ocupe todo el espacio disponible */
+}
+
+.rol-3 .navbar ul li a.centrar {
+    line-height: 120px;
+}
+
+.rol-3 .navbar ul li a.centrar2 {
+    margin-top: 20px;
+    background-color: #be8f17;
+    /* Color de fondo */
+    color: white !important;
+    /* Color del texto */
+}
+
+.rol-3 .navbar ul li a {
+    transition: 300ms;
+    /* Transición suave para el color de fondo */
+}
+
+.rol-3 .navbar ul li a:hover {
+    background-color: #be8f17;
+    /* Color de fondo al pasar el cursor */
+    color: white;
+    font-size: 17px;
+}
+
+.rol-3 .navbar ul li {
+    display: flex;
+    align-items: center;
+}
+
+.rol-3 .navbar ul li .bienvenido {
+    margin-left: 5px;
+}
+
+.rol-3 .navbar .mensaje1 {
+    color: white;
+    /* Color del texto */
+    margin-top: -90px;
+    font-size: 30px;
+    /* Tamaño de letra */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    /* Sombra de texto */
+    font-family: Arial, sans-serif;
+    /* Estilo de letra */
+}
+
+.rol-3 .navbar .imgusuario {
+    display: block;
+    float: left;
+}
+
+.rol-3 .navbar .imgusuario>p {
+    margin-top: -110px;
+    margin-left: 80%;
+    line-height: 40px;
+    width: 400px;
+}
+
+.rol-3 .navbar .imgusuario .card-img-top {
+    margin-top: 10px;
+    margin-left: 20px;
+}
+
+.rol-3 .navbar .imgusuario .ligas {
+    display: block;
+    margin-top: 20px;
+}
+
+.rol-3 .navbar .cuadrar {
+    width: 40px;
+    /* Establece el ancho de la imagen */
+    height: 40px;
+    /* Establece la altura de la imagen */
+}
+
+.rol-3 .navbar .letras {
+    margin-bottom: 30px;
+}
+
+.rol-3 .navbar .ubi {
+    margin-top: -20px;
+    margin-bottom: 25px;
+}
+
+.rol-3 .navbar .row {
+    margin-top: 0px;
+    padding-top: 0px;
+}
+
+.rol-3 .navbar .logos li {
+    display: block;
+    float: left;
+    margin-right: 30px;
+}

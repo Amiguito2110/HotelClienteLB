@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link type="text/css" rel="stylesheet" href="/../../../assets/materialize/css/materialize.min.css/"
+    media="screen,projection" />
+  <style>
+        .centrado {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: fit-content;
+      /* Esto es opcional, dependiendo de cómo quieras centrar */
+    }
+
+    html {
+      background-color: blanchedalmond;
+    }
+
+    main {
+      flex: 1;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="centrado">
+    <div class="card">
+      <div class="card-content">
+        <div class="container">
+          <h4>{{"Porcentaje de Ocupación Mensual"|translate}}</h4>
+          <div class="row">
+            <div class="input-field col s6">
+              <select #setAnio (change)="selectAnio(setAnio.value)">
+                <option value="" disabled selected>{{"Selecciona un año:"|translate}}</option>
+                <option value="2024" selected>2024</option>
+              </select>
+              <label>{{"Selecciona un año:"|translate}}:</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s6">
+              <button (click)="mostrarPorcentaje()" class="waves-effect waves-light btn">{{"Mostrar"|translate}}</button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s12">
+              <table class="striped">
+                <thead>
+                  <tr>
+                    <th>{{"Mes"|translate}}</th>
+                    <th>{{"Porcentaje"|translate}}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let porcentaje of porcentajes; let i = index">
+                    <div *ngIf="idioma == '1'">
+                      <td>{{meses[i]}}</td>
+                    </div>
+                    <div *ngIf="idioma == '2'">
+                      <td>{{months[i]}}</td>
+                    </div>
+                    <td>{{ porcentaje }}%</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="centrado">
+
+    <div class="card">
+      <div class="card-content">
+        <div class="container">
+          <h4>{{"Reporte de ventas mensual"|translate}}</h4>
+          <div class="row">
+            <div class="input-field col s6">
+              <select #setAnio (change)="selectAnio(setAnio.value)">
+                <option value="" disabled selected>{{"Selecciona un año:"|translate}}</option>
+                <option value="2024" selected>2024</option>
+              </select>
+              <label>{{"Selecciona un año:"|translate}}</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s6">
+              <button (click)="mostrarVentas()" class="waves-effect waves-light btn">{{"Mostrar"|translate}}</button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col s12">
+              <table class="striped">
+                <thead>
+                  <tr>
+                    <th>{{"Mes"|translate}}</th>
+                    <th>{{"Total de ventas"|translate}}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let venta of ventas; let i = index">
+                    <div *ngIf="idioma == '1'">
+                      <td>{{meses[i]}}</td>
+                    </div>
+                    <div *ngIf="idioma == '2'">
+                      <td>{{months[i]}}</td>
+                    </div>
+                    <td>${{ venta }}.000 MXN</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Materialize JavaScript -->
+  <script src="/../../../assets/materialize/js/materialize.min.js"></script>
+</body>
+
+</html>

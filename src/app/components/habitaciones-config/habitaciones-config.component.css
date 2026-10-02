@@ -1,0 +1,14 @@
+.image-container {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .image {
+    width: 480px; /* ajusta el tamaño de acuerdo a tus necesidades */
+  }
+  
+  .delete-button {
+    position: absolute;
+    top: 5px; /* ajusta la posición vertical según tu diseño */
+    right: 5px; /* ajusta la posición horizontal según tu diseño */
+  }

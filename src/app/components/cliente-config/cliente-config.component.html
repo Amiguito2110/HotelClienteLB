@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link type="text/css" rel="stylesheet" href="/../../../assets/materialize/css/materialize.min.css/"
+    media="screen,projection" />
+</head>
+
+<style>
+  .centrado {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+    /* Esto es opcional, dependiendo de cómo quieras centrar */
+  }
+
+  .container {
+    margin-right: 50px;
+  }
+
+  body {
+    background-color: blanchedalmond;
+  }
+
+  .page-footer {
+    background-color: #6d4c41;
+  }
+
+  nav {
+    height: 100px;
+  }
+
+  .carousel .carousel-item {
+    width: 720px;
+    height: 360px;
+  }
+
+  .carousel .carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+</style>
+
+<body>
+  <div class="centrado">
+    <div class="container">
+
+      <h4>{{"Perfil de Usuario"|translate}}</h4>
+      <div id="personalName" class="section">
+        <h5>{{"Nombre de Usuario"|translate}}</h5>
+        <div class="row">
+          <div class="col s12 m8">
+            <div class="card">
+              <div class="card-content">
+                <p><strong>{{"Nombre:"|translate}}</strong> {{cuenta.NombreCompleto}}</p>
+              </div>
+              <div class="card-action">
+                <a (click)="modificar_nombreModal()" class="btn">{{"Editar nombre"|translate}}</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="imagenModal" class="section">
+        <h5>{{"Imagen de usuario"|translate}}</h5>
+        <div class="row">
+          <div class="col s12 m8">
+            <div class="card">
+              <div class="card-content">
+                <div align="center">
+                  <img *ngIf="cuenta.Foto == 1" width="128" src="{{liga}}/usuarios/{{cuenta.IDCuenta}}.jpg"
+                    alt="{{liga}}/usuarios/{{cuenta.IDCuenta}}.jpg">
+                  <img *ngIf="cuenta.Foto == 0" width="128" src="{{liga}}/usuarios/0.jpg" alt="{{liga}}/usuarios/0.jpg">
+                </div>
+              </div>
+              <div class="card-action">
+                <a (click)="mostrarImagen(this.cuenta.IDCuenta)" class="btn">{{"Editar Imagen"|translate}}</a>
+                <button class="btn red right" (click)="eliminaImagen(cuenta.IDCuenta)">
+                  <i class="material-icons">delete</i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="personalNumber" class="section">
+        <h5>{{"Número de Teléfono"|translate}}</h5>
+        <div class="row">
+          <div class="col s12 m8">
+            <div class="card">
+              <div class="card-content">
+                <p><strong>{{"Teléfono"|translate}}:</strong> {{cuenta.NumeroTelefono}}</p>
+              </div>
+              <div class="card-action">
+                <a (click)="modificar_numeroModal()" class="btn">{{"Editar teléfono"|translate}}</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div id="personalCorreo" class="section">
+        <h5>{{"Correo Electrónico"|translate}}</h5>
+        <div class="row">
+          <div class="col s12 m8">
+            <div class="card">
+              <div class="card-content">
+                <p><strong>{{"Correo"|translate}}:</strong> {{cuenta.CorreoElectronico}}</p>
+              </div>
+              <div class="card-action">
+                <a (click)="modificar_correoModal()" class="btn">{{"Cambiar correo"|translate}}</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="personalContrasena" class="section">
+        <h5>{{"Contraseña"|translate}}</h5>
+        <div class="row">
+          <div class="col s12 m8">
+            <div class="card">
+              <div class="card-content">
+                <p>{{"En esta apartado puedes modificar tu contraseña."|translate}}</p>
+              </div>
+              <div class="card-action">
+                <a (click)="modificar_contrasenaModal()" class="btn">{{"Cambiar contraseña"|translate}}</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="modificarCorreoModal" class="modal">
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">{{"Cambiar correo electronico"|translate}}</span>
+            <form>
+              <div class="input-field">
+                <input id="newEmail" type="email" class="validate">
+                <label class="active" for="newEmail">{{"Nuevo correo electronico"|translate}}</label>
+              </div>
+              <div class="input-field">
+                <input id="confirmNewEmail" type="email" class="validate">
+                <label class="active" for="confirmNewEmail">{{"Confirmar nuevo correo electronico"|translate}}</label>
+              </div>
+              <button (click)="modificar_datos_Correo()" class="btn waves-effect waves-light" type="submit"
+                name="action">{{"Guardar correo"|translate}}</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div id="modificarContrasenaModal" class="modal">
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">{{"Cambiar Contraseña"|translate}}</span>
+            <form>
+              <div class="input-field">
+                <input [(ngModel)]="nuevacontrasena" type="password" 
+                  name="Contrasena"><label
+                  for="">{{"Nueva Contraseña"|translate}}</label>
+              </div>
+              <div class="input-field">
+                <input [(ngModel)]="confirmacion" type="password" 
+                  name="Contrasena"><label
+                  for="">{{"Confirmar Nueva Contraseña"|translate}}</label>
+              </div>
+
+              <button (click)="modificar_datos_Contrasena(nuevacontrasena,confirmacion)" class="btn waves-effect waves-light" type="submit"
+                name="action">{{"Guardar Cambios"|translate}}</button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div id="editNombreModal" class="modal">
+        <div class="modal-content">
+          <h4>{{"Editar Nombre de Usuario"|translate}}</h4>
+          <form>
+            <div class="input-field">
+              <input id="nombreCompleto" [(ngModel)]="cuenta.NombreCompleto" name="nombreCompleto" type="text"
+                class="validate" class="active">
+              <label class="active" for="nombre">{{"Nombre"|translate}}</label>
+            </div>
+            <button (click)="modificar_datos_Nombre()" class="btn waves-effect waves-light" type="submit"
+              name="action">{{"Guardar Cambios"|translate}}</button>
+          </form>
+        </div>
+      </div>
+
+
+      <div id="editNumberModal" class="modal">
+        <div class="modal-content">
+          <h4>{{"Editar Número de Teléfono"|translate}}</h4>
+          <form>
+            <div class="input-field">
+              <input id="NumeroTelefono" [(ngModel)]="cuenta.NumeroTelefono" name="NumeroTelefono" type="text"
+                class="validate" class="active">
+              <label class="active" for="telefono">{{"Teléfono"|translate}}</label>
+            </div>
+            <button (click)="modificar_datos_Telefono()" class="btn waves-effect waves-light" type="submit"
+              name="action">{{"Guardar Cambios"|translate}}</button>
+          </form>
+        </div>
+      </div>
+
+      <div id="Imagen" class="modal">
+        <div class="modal-content">
+          <div class="row" style="margin-bottom: 0px !important;">
+            <div class="col s12">
+              <h5 class="center">{{"Imagen"|translate}}</h5>
+            </div>
+          </div>
+          <div style="border: .5px solid #78909c; padding: 10px;">
+            <div class="row">
+              <div class="input-field col s12">
+
+                <div align="center">
+                  <img *ngIf="cuenta.Foto == 1" width="128" src="{{liga}}/usuarios/{{cuenta.IDCuenta}}.jpg"
+                    alt="{{liga}}/usuarios/{{cuenta.IDCuenta}}.jpg">
+                  <img *ngIf="cuenta.Foto == 0" width="128" src="{{liga}}/usuarios/0.jpg" alt="{{liga}}/usuarios/0.jpg">
+                </div>
+              </div>
+
+              <div class="input-field col s6">
+                <label>{{"Imagen de usuario"|translate}}</label>
+                <br><br>
+                <input type="file" (change)="cargandoImagen($event.target)" multiple>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col s6 center">
+                <input type="submit" class="waves-effect btn-large brown lighten-3 modal-close translate-button"
+                  (click)="modificar_datos_Imagen()" value="{{'Enviar'|translate}}">
+              </div>
+              <div class="col s6 center">
+                <a
+                  class="modal-action modal-close waves-effect btn-large brown lighten-3 black-text translate-button">{{"Cancelar"|translate}}</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+
+
+  <!-- Agrega el enlace al archivo JavaScript de Materialize -->
+  <script type="text/javascript" src="/../../../assets/materialize/js/materialize.min.js/"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,25 @@
+/* Estilos para el select */
+select {
+    /* Establece el color de fondo y el borde */
+    background-color: #be8f17 !important;
+    border: 2px solid #000 !important;
+    border-radius: 5px !important; /* Para darle bordes redondeados */
+    color: #000 !important; /* Color del texto */
+    padding: 8px 12px !important; /* Espaciado interno */
+    font-size: 16px !important; /* Tamaño de fuente */
+  }
+  
+  /* Estilos para las opciones del select */
+  select option {
+    background-color: #be8f17 !important; /* Color de fondo de las opciones */
+    color: #000 !important; /* Color del texto de las opciones */
+  }
+  
+  /* Estilos para la etiqueta del select */
+  label {
+    color: #000 !important; /* Color del texto de la etiqueta */
+    font-weight: bold !important; /* Fuente en negrita */
+    margin-top: 10px !important; /* Margen superior */
+    display: block !important; /* Para que ocupe todo el ancho */
+  }
+  

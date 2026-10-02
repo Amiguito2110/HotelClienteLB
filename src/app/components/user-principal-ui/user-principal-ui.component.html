@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <div class="cajita">
+    <div id="Carrusel" class="carousel">
+      <div class="carousel-item" onclick="return false;"><img src="../../../assets/images/carusel_cabana_1.webp"></div>
+      <div class="carousel-item" onclick="return false;"><img src="../../../assets/images/carusel_cabana_2.webp"></div>
+      <div class="carousel-item" onclick="return false;"><img src="../../../assets/images/carusel_cabana_3.webp"></div>
+      <div class="carousel-item" onclick="return false;"><img src="../../../assets/images/carusel_cabanas_1.webp"></div>
+      <div class="carousel-item" onclick="return false;"><img src="../../../assets/images/carusel_masters_1.webp"></div>
+      <div class="carousel-item" onclick="return false;"><img src="../../../assets/images/carusel_suite_1.webp"></div>
+    </div>
+  </div>
+
+
+  <div *ngIf="Rol == 1" class="rol-1">
+    <div class="container">
+      <div class="row">
+        <div class="col s5" *ngFor="let habitacion of habitaciones">
+          <!--AQUI SE DEBEN CARGAR LAS IMAGENES DINAMICAMENTE--->
+          <div class="card">
+            <div class="card-image waves-effect waves-block waves-light">
+              <img class="activator" src="{{liga}}/habitaciones/{{habitacion.idFotoPrincipal}}.jpg">
+            </div>
+            <div class="card-content">
+
+              <span class="card-title activator grey-text text-darken-4 ">{{habitacion.TipoHabitacion | translate}}<i
+                  class="material-icons right">zoom_out_map</i></span>
+              <button (click)="mostrar_todas_fotos(habitacion.IDHabitacion)">{{"Ver más imágenes"| translate}}</button>
+
+            </div>
+            <div class="card-reveal">
+              <span class="card-title grey-text text-darken-4">{{habitacion.TipoHabitacion | translate}}<i
+                  class="material-icons right">close</i></span>
+              <div *ngIf="idioma == '1'">
+                {{habitacion.descripcion}}
+              </div>
+              <div *ngIf="idioma == '2'">
+                {{habitacion.description}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div *ngIf="Rol == 2" class="rol-2">
+
+  </div>
+
+  <div *ngIf="Rol == 3" class="rol-3">
+    <div class="container">
+      <div class="row">
+        <div class="col s5" *ngFor="let habitacion of habitaciones">
+          <!--AQUI SE DEBEN CARGAR LAS IMAGENES DINAMICAMENTE--->
+          <div class="card">
+            <div class="card-image waves-effect waves-block waves-light">
+              <img class="activator" src="{{liga}}/habitaciones/{{habitacion.idFotoPrincipal}}.jpg">
+            </div>
+            <div class="card-content">
+              <span class="card-title activator grey-text text-darken-4 ">{{habitacion.TipoHabitacion | translate}}<i
+                  class="material-icons right">zoom_out_map</i></span>
+              <button (click)="mostrar_todas_fotos(habitacion.IDHabitacion)">{{"Ver más imágenes"| translate}}</button>
+
+            </div>
+            <div class="card-reveal">
+              <span class="card-title grey-text text-darken-4">{{habitacion.TipoHabitacion | translate}}<i
+                  class="material-icons right">close</i></span>
+              <div *ngIf="idioma == '1'">
+                {{habitacion.descripcion}}
+              </div>
+              <div *ngIf="idioma == '2'">
+                {{habitacion.description}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="Mostrar_fotos" class="modal">
+    <div class="contenedor-imagenes">
+      <div class="carousel carousel-slider center">
+        <button (click)="cerrar()" class="boton-x">X</button>
+        <div *ngFor="let id of lista_fotos" class="carousel-item ">
+          <img src="{{liga}}/habitaciones/{{id.id_foto}}.jpg">
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <script type="text/javascript" src="js/materialize.min.js"></script>
+</body>
+
+</html>

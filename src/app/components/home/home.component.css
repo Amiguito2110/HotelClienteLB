@@ -1,0 +1,24 @@
+h1 {
+    color: white;
+}
+
+h2 {
+    color: white;
+}
+
+a {
+    color: white;
+}
+
+/*ESTILOS PARA EL CARRUSEL*/
+
+.carousel .carousel-item {
+    width: 720px;
+    height: 360px;
+}
+
+.carousel .carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Recuperar contraseña</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col s12 m6 offset-m3">
+        <div class="card">
+          <div class="card-content">
+            <img class="card-img-top" src="../../../assets/images/logo_transparente.png" width="320" height="150">
+            <div class="card-title">
+              <span>Recupera tu contraseña</span>
+            </div>
+            <form>
+
+              <div class="row">
+                <div class="input-field">
+                  <div class="input-field">
+                    <input [(ngModel)]="cuenta.CorreoElectronico" type="email" name="Contrasena"><label
+                      for="">Ingrese el correo electrónico</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col s12">
+                  <button (click)="recuperar()" class="btn waves-effect waves-light alinear-derecha" type="submit"
+                    name="action">Enviar correo<i class="material-icons right">login</i>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+</body>
+
+</html>
