@@ -1,6 +1,12 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule, HttpClient } from "@angular/common/http";
+// SEGURIDAD [JWT-FRONT-03]:
+// Se agrega HTTP_INTERCEPTORS para registrar el interceptor.
+import {
+  HttpClientModule,
+  HttpClient,
+  HTTP_INTERCEPTORS
+} from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -29,12 +35,27 @@ import { InventarioTiendaComponent } from './components/inventario-tienda/invent
 import { PromocionesEnvioComponent } from './components/promociones-envio/promociones-envio.component';
 import { ListaPromocionesComponent } from './components/lista-promociones/lista-promociones.component';
 import { OfertasclienteComponent } from './components/ofertascliente/ofertascliente.component';
-import { TranslateHttpLoader } from "@ngx-translate/http-loader";
-import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import {
+  TranslateModule,
+  TranslateLoader
+} from '@ngx-translate/core';
+
 import { CambioIdiomaService } from 'src/services/cambio-idioma.service';
+
+// SEGURIDAD [JWT-FRONT-03]:
+// Interceptor encargado de adjuntar el JWT a la API.
+import { AuthInterceptor } from './interceptors/auth.interceptor';
+
 export function HttpLoaderFactory(http: HttpClient) {
-return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
+  return new TranslateHttpLoader(
+    http,
+    './assets/i18n/',
+    '.json'
+  );
 }
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,24 +82,39 @@ return new TranslateHttpLoader(http, "./assets/i18n/", ".json");
     RecepcionistaComponent,
     ClienteComponent,
     InventarioTiendaComponent,
-    OfertasclienteComponent,
-
+    OfertasclienteComponent
   ],
+
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     FormsModule,
     NgxPaginationModule,
+
+    // HTTP_INTERCEPTORS no debe colocarse aquí.
+
     TranslateModule.forRoot({
       loader: {
-      provide: TranslateLoader,
-      useFactory: HttpLoaderFactory,
-      deps: [HttpClient],
-      },
-      }),
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
-  providers: [CambioIdiomaService],
+
+  providers: [
+    CambioIdiomaService,
+
+    // SEGURIDAD [JWT-FRONT-03]:
+    // Registrar el interceptor de autenticación JWT.
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+  ],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }
