@@ -113,10 +113,22 @@
             name="nuevaContrasena">
           <label class="active" for="contrasenaNuevo">{{"Contraseña"|translate}}</label>
         </div>
-        <div class="input-field">
-          <input [(ngModel)]="cuenta.NumeroTelefono" id="telefono" type="number" class="validate" name="telefonoNuevo">
-          <label class="active" for="nuevoTelefono">{{"Número de Télefono"|translate}}</label>
-        </div>
+          <div class="input-field">
+            <input
+              [(ngModel)]="cuenta.NumeroTelefono"
+              id="telefono"
+              type="tel"
+              inputmode="numeric"
+              maxlength="10"
+              minlength="10"
+              pattern="[0-9]{10}"
+              class="validate"
+              name="telefonoNuevo"
+            >
+            <label class="active" for="telefono">
+              {{"Número de Télefono" | translate}}
+            </label>
+          </div>
         <button (click)="crear_recepcionista()" class="btn waves-effect waves-light" type="submit" name="action">{{"Crear Recepcionista"|translate}}</button>
       </form>
     </div>

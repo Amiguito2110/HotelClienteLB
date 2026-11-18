@@ -68,22 +68,61 @@ export class AdminConfigComponent implements AfterViewInit, OnInit {
     const modalInstance = M.Modal.getInstance(modalElem);
     modalInstance.open();
   }
+crear_recepcionista() {
 
-  crear_recepcionista() {
-    this.cuenta.Rol = '2'
-    this.CuentaService.crearCuenta(this.cuenta).subscribe((resCuenta: any) => {
-      console.log(resCuenta);
+  this.CuentaService.crearRecepcionista(this.cuenta).subscribe({
+
+    next: (resCuenta: any) => {
+
+      // 1. Cerrar el modal de crear recepcionista
+      const modalElem = this.el.nativeElement.querySelector(
+        '#agregarRecepcionista'
+      );
+
+      const modalInstance = M.Modal.getInstance(modalElem);
+
+      if (modalInstance) {
+        modalInstance.close();
+      }
+
+      // 2. Limpiar el formulario
+      this.cuenta = new cuentaNueva();
+
+      // 3. Actualizar la lista de recepcionistas
+      this.CuentaService.mostrar_todas_cuentas().subscribe({
+        next: (resCuentas: any) => {
+          this.listaCuentas = resCuentas;
+        },
+        error: (error) => {
+          console.error('Error al actualizar recepcionistas:', error);
+        }
+      });
+
+      // 4. Mostrar mensaje de éxito
       Swal.fire({
-        title:this.mensaje.creacion,
+        title: this.mensaje.creacion,
         icon: 'success',
         confirmButtonText: 'Ok'
       });
-      this.CuentaService.mostrar_todas_cuentas().subscribe((resCuentaes: any) => {
-        this.listaCuentas = resCuentaes;
+
+    },
+
+    error: (error) => {
+
+      console.error('Error al crear recepcionista:', error);
+
+      Swal.fire({
+        title: 'Error',
+        text: error.error?.mensaje ||
+              'No se pudo crear el recepcionista.',
+        icon: 'error'
       });
-    });
-   
-  }
+
+    }
+
+  });
+
+}
 
   actualizarcuenta(selectedcuenta2: any) {
     this.cuenta2 = selectedcuenta2;

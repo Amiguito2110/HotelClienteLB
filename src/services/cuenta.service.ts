@@ -1,4 +1,3 @@
-
 import { Injectable } from '@angular/core';
 import {
   HttpClient,
@@ -7,6 +6,8 @@ import {
 
 import { Observable } from 'rxjs';
 import { environment } from '../environments/environment';
+
+import { cuentaNueva } from '../app/models/cuentaNueva';
 
 // SEGURIDAD [JWT-FRONT-01]:
 // Tipado de la respuesta recibida del backend.
@@ -178,6 +179,14 @@ verificarTokenTemporal() {
     return this.http.put(
       `${environment.API_URI}/cuenta/crear_cuenta/`,
       datosJSON
+    );
+  }
+
+
+  crearRecepcionista(datosJSON: cuentaNueva) {
+    return this.http.put(
+        `${environment.API_URI}/cuenta/crear_recepcionista/`,
+        datosJSON
     );
   }
 
