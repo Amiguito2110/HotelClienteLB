@@ -59,43 +59,143 @@
       </div>
     </nav>
   </div>
-  <div *ngIf="Rol == 2" class="rol-2">
-    <nav class="navbar">
-      <div class="nav-wrapper">
-        <div class="imgusuario">
-          <img class="card-img-top" src="../../../assets/images/logo_transparente.png" width="150" height="90">
-        </div>
-        <li><a href="/home/user_principal_ui"><i class="material-icons alinear">home</i><span class="texto">{{"Inicio"|translate}}</span></a></li>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li><a href="/home/booking_menu" class="waves-effect waves-light btn centrar2">{{'Reservaciones'|translate}}<i
-                class="material-icons right">book</i></a></li>
-          <li><a href="/home/inventario_tienda"><i
-                class="large material-icons">inventory</i><span>{{'Inventario'|translate}}</span></a></li>
-          <li><a href="#" onclick="logout()"><i class="material-icons alinear">logout</i><span
-                class="texto">{{'Salir'|translate}}</span></a></li>
-          <li><a class="dropdown-trigger" href="#" data-target="dropdown3"><i
-            class="material-icons">language</i>
-            <img *ngIf="idioma == '1'" src="../assets/images/bandMex.png"  alt="Bandera de México" class="bandera material-icons">
-            <img *ngIf="idioma == '2'" src="../assets/images/bandUSA.svg"  alt="Bandera de Estados Unidos" class="bandera material-icons">  
-          </a></li>
-        </ul>
-        <ul id="dropdown3" class="dropdown-content idioma-nav">
-          <li (click)="setIdioma(1)">
-              <a>
-                  <img src="../assets/images/bandMex.png" alt="Bandera de México" class="bandera material-icons">
-                  <span>{{"Español"|translate}}</span>
-              </a>
-          </li>
-          <li (click)="setIdioma(2)">
-              <a>
-                  <img src="../assets/images/bandUSA.svg" alt="Bandera de Estados Unidos" class="bandera material-icons">
-                  <span>{{"English"|translate}}</span>
-              </a>
-          </li>
-      </ul>
+
+
+<!-- ====================================== -->
+<!-- NAVBAR RECEPCIONISTA - ROL 2           -->
+<!-- ====================================== -->
+
+<div *ngIf="Rol == 2" class="rol-2">
+
+  <nav class="navbar">
+    <div class="nav-wrapper">
+
+      <!-- LOGO -->
+      <div class="imgusuario">
+        <img
+          class="card-img-top"
+          src="../../../assets/images/logo_transparente.png"
+          width="150"
+          height="90"
+          alt="Hotel Campestre">
       </div>
-    </nav>
-  </div>
+
+      <!-- OPCIONES DEL RECEPCIONISTA -->
+      <ul
+        id="nav-mobile-recepcionista"
+        class="right hide-on-med-and-down ligas">
+
+        <!-- INICIO -->
+        <li>
+          <a routerLink="/home/user_principal_ui">
+            <i class="material-icons alinear">home</i>
+            <span class="texto">
+              {{"Inicio" | translate}}
+            </span>
+          </a>
+        </li>
+
+        <!-- RESERVACIONES -->
+        <li>
+          <a routerLink="/home/booking_menu">
+            <i class="large material-icons">list</i>
+            <span>
+              {{"Lista reservaciones" | translate}}
+            </span>
+          </a>
+        </li>
+
+        <!-- INVENTARIO -->
+        <li>
+          <a routerLink="/home/inventario_tienda">
+            <i class="large material-icons">inventory</i>
+            <span>
+              {{"Inventario" | translate}}
+            </span>
+          </a>
+        </li>
+
+        <!-- MI CUENTA -->
+        <li>
+          <a routerLink="/home/cliente_config">
+            <i class="material-icons alinear">
+              account_circle
+            </i>
+            <span class="texto">
+              {{"Cuenta" | translate}}
+            </span>
+          </a>
+        </li>
+
+        <!-- IDIOMA -->
+        <li>
+          <a
+            class="dropdown-trigger"
+            href="#"
+            data-target="dropdown-recepcionista"
+            style="line-height: 64px;">
+
+            <i class="material-icons">language</i>
+
+            <img
+              *ngIf="idioma == '1'"
+              src="../assets/images/bandMex.png"
+              alt="México"
+              class="bandera material-icons">
+
+            <img
+              *ngIf="idioma == '2'"
+              src="../assets/images/bandUSA.svg"
+              alt="Estados Unidos"
+              class="bandera material-icons">
+
+          </a>
+        </li>
+
+        <!-- CERRAR SESIÓN -->
+        <li>
+          <a href="#" onclick="logout()">
+            <i class="material-icons alinear">logout</i>
+            <span class="texto">
+              {{"Salir" | translate}}
+            </span>
+          </a>
+        </li>
+
+      </ul>
+
+      <!-- MENÚ DE IDIOMA -->
+      <ul
+        id="dropdown-recepcionista"
+        class="dropdown-content idioma-nav">
+
+        <li (click)="setIdioma(1)">
+          <a>
+            <img
+              src="../assets/images/bandMex.png"
+              alt="Bandera de México"
+              class="bandera material-icons">
+            <span>{{"Español" | translate}}</span>
+          </a>
+        </li>
+
+        <li (click)="setIdioma(2)">
+          <a>
+            <img
+              src="../assets/images/bandUSA.svg"
+              alt="Bandera de Estados Unidos"
+              class="bandera material-icons">
+            <span>{{"English" | translate}}</span>
+          </a>
+        </li>
+
+      </ul>
+
+    </div>
+  </nav>
+
+</div>
+
   <div *ngIf="Rol == 3" class="rol-3">
     <nav class="navbar">
       <div class="nav-wrapper">

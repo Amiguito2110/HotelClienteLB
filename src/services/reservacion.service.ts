@@ -78,6 +78,13 @@ export class ReservacionService {
   setearCostoTotal(datosJSON: any){
     return this.http.post(`${environment.API_URI}/reservaciones/setearCostoTotal/`,datosJSON);
   }
+  // SEGURIDAD [RES-CANCEL-01]:
+  // Una sola solicitud para cancelar la reserva.
+  cancelar_reservacion_segura(id: number) {
+    return this.http.delete(
+      `${environment.API_URI}/reservaciones/cancelar_reservacion/${id}`
+    );
+  }
 
 
 }

@@ -21,8 +21,8 @@ declare var M: any;
 export class ClienteBookingsComponent implements AfterViewInit {
   id_user = 0;
   booking_list: reservacion[] = [];
-  booking_details: any;
-  booking_option: any;
+  booking_details: any[] = [];
+  booking_option: string = 'todas';
   bookings_selected: reservacion[] = [];
   fechaActual: any;
   datosJSON: detallesReserva[] = [];
@@ -41,52 +41,124 @@ export class ClienteBookingsComponent implements AfterViewInit {
     this.setBookingsSelected()
   }
 
-  setBookingsSelected() {
-    this.bookings_selected = []
-    this.fechaActual = formatDate(new Date(), 'yyyy-MM-dd', 'en-US')
-    // this.fechaActual = formatDate(new Date(), 'dd-MM-yyyy', 'en-US')
-    const fechaFormateada = this.fechaActual.replace(/-/g, '');
-    console.log(fechaFormateada);
+  setBookingsSelected(): void {
 
-    console.log(this.booking_option == 'activas');
-    console.log(this.fechaActual);
+    this.bookings_selected = [];
 
-    if (this.booking_option == 'pasadas') {
-      this.booking_list.forEach(reservacion => {
-        if (Number(reservacion.FechaSalida.replace(/-/g, '')) < Number(fechaFormateada)) {
-          this.bookings_selected.push(reservacion)
-        }
-      });
-    } else if (this.booking_option == 'futuras') {
-      this.booking_list.forEach(reservacion => {
-        if (Number(reservacion.FechaEntrada.replace(/-/g, '')) > Number(fechaFormateada)) {
-          this.bookings_selected.push(reservacion)
-        }
-      });
+    this.fechaActual = formatDate(
+      new Date(),
+      'yyyy-MM-dd',
+      'en-US'
+    );
 
-    } else if (this.booking_option == 'activas') {
-      this.booking_list.forEach(reservacion => {
-        if (Number(reservacion.FechaEntrada.replace(/-/g, '')) <= Number(fechaFormateada) && Number(reservacion.FechaSalida.replace(/-/g, '')) > Number(fechaFormateada)) {
-          this.bookings_selected.push(reservacion)
-        }
-      });
+    // Mostrar todas las reservaciones.
+    if (this.booking_option === 'todas') {
+      this.bookings_selected = [...this.booking_list];
+      return;
     }
+
+    this.booking_list.forEach((reserva) => {
+
+      const fechaEntrada = String(reserva.FechaEntrada).slice(0, 10);
+      const fechaSalida = String(reserva.FechaSalida).slice(0, 10);
+
+      if (this.booking_option === 'pasadas') {
+
+        // Una reservación deja de estar activa
+        // cuando llega su fecha de salida.
+        if (fechaSalida <= this.fechaActual) {
+          this.bookings_selected.push(reserva);
+        }
+
+      } else if (this.booking_option === 'futuras') {
+
+        if (fechaEntrada > this.fechaActual) {
+          this.bookings_selected.push(reserva);
+        }
+
+      } else if (this.booking_option === 'activas') {
+
+        if (
+          fechaEntrada <= this.fechaActual &&
+          fechaSalida > this.fechaActual &&
+          reserva.EstadoReserva !== 'Cancelado'
+        ) {
+          this.bookings_selected.push(reserva);
+        }
+
+      }
+    });
   }
 
-  setReservaciones() {
-    this.ReservacionService.mostrar_reservaciones_por_IDCuenta(this.id_user).subscribe((resReservaciones: any) => {
-      console.log('resReservaciones', resReservaciones);
-      this.booking_list = resReservaciones;
-    });
-    console.log('Reservaciones: ', this.booking_list);
-    this.setBookingsSelected();
+  // SEGURIDAD [RES-ANG-01]:
+  // Actualizar el listado cuando finaliza
+  // correctamente la consulta al backend.
+
+  setReservaciones(): void {
+
+    this.ReservacionService
+      .mostrar_reservaciones_por_IDCuenta(this.id_user)
+      .subscribe({
+
+        next: (resReservaciones: any) => {
+
+          this.booking_list = Array.isArray(resReservaciones)
+            ? resReservaciones
+            : [];
+
+          // Filtrar después de recibir los datos.
+          this.setBookingsSelected();
+        },
+
+        error: (error: any) => {
+
+          this.booking_list = [];
+          this.bookings_selected = [];
+
+          Swal.fire({
+            title: 'Error',
+            text: error.status === 403
+              ? 'No tienes autorización para consultar estas reservaciones.'
+              : 'No se pudieron cargar tus reservaciones.',
+            icon: 'error',
+            confirmButtonText: 'Aceptar'
+          });
+        }
+
+      });
   }
 
-  setBookingDetails(id_reserva: any) {
-    this.ReservacionService.mostrar_detalles_reservacion(id_reserva).subscribe((resDetails: any) => {
-      this.booking_details = resDetails;
-    });
-    this.modalAbrirDetalles()
+  // SEGURIDAD [RES-ANG-02]:
+  // Mostrar detalles únicamente después de
+  // recibir correctamente la respuesta.
+
+  setBookingDetails(id_reserva: any): void {
+
+    this.ReservacionService
+      .mostrar_detalles_reservacion(id_reserva)
+      .subscribe({
+
+        next: (resDetails: any) => {
+
+          this.booking_details = resDetails;
+
+          // Abrir el modal con los datos recibidos.
+          this.modalAbrirDetalles();
+        },
+
+        error: (error: any) => {
+
+          Swal.fire({
+            title: 'Error',
+            text: error.status === 403
+              ? 'No tienes permiso para consultar esta reservación.'
+              : 'No se pudieron obtener los detalles de la reservación.',
+            icon: 'error',
+            confirmButtonText: 'Aceptar'
+          });
+        }
+
+      });
   }
 
   modalAbrirDetalles() {
@@ -111,65 +183,57 @@ export class ClienteBookingsComponent implements AfterViewInit {
     this.setBookingsSelected()
   }
 
-  cancelarReservacion(id: any, FechaEntrada: string, FechaSalida: string) {
-
-    const estadoReservaJSON = {
-      EstadoReserva: 'Cancelado',
-      EstadoPago: 'Cancelado'
-    };
-
-    const update_aux = {
-      CantidadHabitaciones: 0,
-      fechaInicio: '',
-      fechaFin: '',
-      IDHabitacion: 0
-    };
-
-    this.ReservacionService.mostrar_detallesReservacion(id).subscribe((resDetails: any) => {
-      console.log(resDetails);
-      this.datosJSON = resDetails;
-    });
+  
+  cancelarReservacion(
+    id: number,
+    _FechaEntrada: string,
+    _FechaSalida: string
+  ): void {
 
     Swal.fire({
-      title: "¿Seguro que deseas cancelar esta reservación?",
-      text: "¡No es posible revertir esto!",
-      icon: "warning",
+      title: '¿Seguro que deseas cancelar esta reservación?',
+      text: 'No es posible revertir esta operación.',
+      icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Sí, quiero cancelar"
+      confirmButtonText: 'Sí, quiero cancelar',
+      cancelButtonText: 'No'
     }).then((result) => {
-      if (result.isConfirmed) {
-        this.ReservacionService.modificar_estado_reserva(id, estadoReservaJSON).subscribe((res: any) => {
-          console.log(res);
-        });
 
-        this.datosJSON.forEach(dato =>  {
-          update_aux.CantidadHabitaciones = dato.CantidadHabitaciones;
-          update_aux.IDHabitacion = dato.IDHabitacion;
-          update_aux.fechaInicio = FechaEntrada;
-          update_aux.fechaFin = FechaSalida;
-          console.log('SE VA A INGRESAR:', update_aux);
-          this.ReservacionService.actualizar_despues_de_cancelacion(update_aux).subscribe((res: any)  => {
-            console.log(res);
-          });
-          this.update.push(update_aux);
-        });
-    
-        Swal.fire({
-          title: 'Reservación cancelada',
-          icon: 'success',
-          confirmButtonText: 'Ok'
-        });
+      if (!result.isConfirmed) {
+        return;
       }
 
-      this.ReservacionService.actualizar_despues_de_cancelacion(this.update).subscribe((res: any)  => {
-        console.log(res);
-      });
+      // SEGURIDAD [RES-CANCEL-01]:
+      // Express realiza la cancelación y la devolución
+      // de disponibilidad dentro de una transacción.
+      this.ReservacionService
+        .cancelar_reservacion_segura(id)
+        .subscribe({
 
-      this.setReservaciones();
-      this.setBookingsSelected();
+          next: () => {
+
+            Swal.fire({
+              title: 'Reservación cancelada',
+              icon: 'success',
+              confirmButtonText: 'Ok'
+            });
+
+            this.setReservaciones();
+          },
+
+          error: (error: any) => {
+
+            Swal.fire({
+              title: 'No se pudo cancelar',
+              text: error.error?.mensaje ||
+                'Ocurrió un error al cancelar la reservación.',
+              icon: 'error',
+              confirmButtonText: 'Ok'
+            });
+          }
+        });
     });
   }
+
 
 }

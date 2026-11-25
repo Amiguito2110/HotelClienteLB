@@ -1,4 +1,3 @@
-
 import { Injectable } from '@angular/core';
 
 import {
@@ -20,7 +19,7 @@ export class AuthInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
 
     // SEGURIDAD [JWT-FRONT-03]:
-    // Recuperar el token de la sesión actual.
+    // Recuperar el token de la sesión.
     const token = sessionStorage.getItem(
       'hotel_access_token'
     );
@@ -29,10 +28,14 @@ export class AuthInterceptor implements HttpInterceptor {
       return next.handle(req);
     }
 
-    // SEGURIDAD [JWT-FRONT-04]:
-    // Identificar exclusivamente nuestra API.
+    // Identificar los dos servidores de Hotel Campestre.
     const apiUrl = new URL(
       environment.API_URI,
+      window.location.origin
+    );
+
+    const imagenesUrl = new URL(
+      environment.API_URI_IMAGES,
       window.location.origin
     );
 
@@ -41,55 +44,86 @@ export class AuthInterceptor implements HttpInterceptor {
       window.location.origin
     );
 
-    const apiPath = apiUrl.pathname.replace(/\/+$/, '') + '/';
+    const apiPath =
+      apiUrl.pathname.replace(/\/+$/, '') + '/';
 
-    // No enviar el JWT a servidores externos
-    // ni a los servicios independientes de correo e imágenes.
-    if (
-      requestUrl.origin !== apiUrl.origin ||
-      !requestUrl.pathname.startsWith(apiPath)
-    ) {
+    const imagenesPath =
+      imagenesUrl.pathname.replace(/\/+$/, '');
+
+    const rutaSolicitada =
+      requestUrl.pathname.replace(/\/+$/, '');
+
+    // SEGURIDAD [JWT-FRONT-04]:
+    // Verificar que sea nuestra API principal.
+    const esApiPrincipal =
+      requestUrl.origin === apiUrl.origin &&
+      requestUrl.pathname.startsWith(apiPath);
+
+    // SEGURIDAD [IMG-AUTH-01]:
+    // Autorizar el envío del token exclusivamente
+    // a los endpoints de gestión de imágenes.
+    const esServidorImagenes =
+      requestUrl.origin === imagenesUrl.origin &&
+      req.method === 'POST' &&
+      (
+        rutaSolicitada ===
+          `${imagenesPath}/uploadImagen` ||
+        rutaSolicitada ===
+          `${imagenesPath}/deleteImagen`
+      );
+
+    // No enviar JWT a servidores o rutas no autorizadas.
+    if (!esApiPrincipal && !esServidorImagenes) {
       return next.handle(req);
     }
 
     // SEGURIDAD [JWT-FRONT-05]:
-    // Evitar enviar el JWT mediante HTTP sin cifrar
-    // a servidores remotos.
-    const esLocal = ['localhost', '127.0.0.1'].includes(
-      apiUrl.hostname
-    );
+    // No transmitir JWT por HTTP hacia servidores remotos.
+    const destino = esApiPrincipal
+      ? apiUrl
+      : imagenesUrl;
 
-    if (apiUrl.protocol !== 'https:' && !esLocal) {
+    const esLocal = [
+      'localhost',
+      '127.0.0.1'
+    ].includes(destino.hostname);
+
+    if (destino.protocol !== 'https:' && !esLocal) {
       return next.handle(req);
     }
 
     // SEGURIDAD [JWT-FRONT-06]:
-    // Mantener públicas las operaciones de acceso y registro.
-    const ruta = requestUrl.pathname
-      .slice(apiPath.length)
-      .replace(/\/+$/, '');
+    // Conservar públicas las operaciones
+    // de autenticación y registro de cuentas.
+    if (esApiPrincipal) {
 
-    const rutasPublicas = [
-      'cuenta/validar_cuenta',
-      'cuenta/crear_cuenta',
-      'cuenta/correo_existe',
-      'cuenta/correo_existe2'
-    ];
+      const ruta = requestUrl.pathname
+        .slice(apiPath.length)
+        .replace(/\/+$/, '');
 
-    if (rutasPublicas.some(
-      publica => ruta === publica ||
-        ruta.startsWith(publica + '/')
-    )) {
-      return next.handle(req);
+      const rutasPublicas = [
+        'cuenta/validar_cuenta',
+        'cuenta/crear_cuenta',
+        'cuenta/correo_existe',
+        'cuenta/correo_existe2'
+      ];
+
+      if (rutasPublicas.some(
+        publica =>
+          ruta === publica ||
+          ruta.startsWith(publica + '/')
+      )) {
+        return next.handle(req);
+      }
     }
 
-    // No sobrescribir un encabezado definido explícitamente.
+    // No sobrescribir un Authorization existente.
     if (req.headers.has('Authorization')) {
       return next.handle(req);
     }
 
-    // SEGURIDAD [JWT-FRONT-03]:
-    // Agregar automáticamente el JWT.
+    // SEGURIDAD [JWT-FRONT-07]:
+    // Adjuntar JWT únicamente a destinos autorizados.
     const peticionAutenticada = req.clone({
       setHeaders: {
         Authorization: `Bearer ${token}`

@@ -124,33 +124,63 @@ export class ClienteConfigComponent implements AfterViewInit, OnInit {
       $("#Imagen").modal("open");
     }, err => console.error(err));
   }
-  cargandoImagen(archivo: any) {
+  // SEGURIDAD [IMG-FRONT-01]: validación temprana en Angular.
+  // La validación definitiva se ejecuta en el servidor de imágenes.
+  cargandoImagen(archivo: any): void {
     this.imgUsuario = null;
     this.liga = environment.API_URI_IMAGES;
 
-    this.fileToUpload = archivo.files.item(0);
-    let imgPromise = this.getFileBlob(this.fileToUpload);
-    imgPromise.then(blob => {
-      console.log("convirtiendo imagen")
+    const seleccionada: File | null = archivo?.files?.item(0) ?? null;
+    if (!seleccionada) return;
 
-      this.imagenesService.guardarImagen(this.cuenta.IDCuenta, "usuarios", blob).subscribe(
-        (res: any) => {
-          this.imgUsuario = blob;
-          console.log("Usuario id: ", this.cuenta.IDCuenta);
+    const formatos = ['image/jpeg', 'image/png', 'image/webp'];
+    if (!formatos.includes(seleccionada.type)) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Formato no permitido',
+        text: 'Selecciona una fotografía JPEG, PNG o WebP.'
+      });
+      return;
+    }
 
-          //this.liga = "";
-          // Actualizar la variable 'liga' después de cargar la imagen
-          //this.liga = environment.API_URI_IMAGES + "/usuarios/" + this.cuenta.IDCuenta + ".jpg";
-          console.log(this.cuenta.IDCuenta);
+    const maxBytes = 5 * 1024 * 1024;
+    if (seleccionada.size === 0 || seleccionada.size > maxBytes) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Tamaño no permitido',
+        text: 'La fotografía debe tener un tamaño máximo de 5 MB.'
+      });
+      return;
+    }
 
-          console.log(this.liga);
-
-          this.CuentaService.mostrarCuenta(this.cuenta.IDCuenta).subscribe((resCuenta: any) => {
-            this.cuenta = resCuenta;
-          }, err => console.error(err));
-        }, err => console.error(err));
-    });
-
+    this.fileToUpload = seleccionada;
+    this.getFileBlob(seleccionada)
+      .then((src: string) => {
+        this.imagenesService.guardarImagen(this.cuenta.IDCuenta, 'usuarios', src)
+          .subscribe({
+            next: () => {
+              this.imgUsuario = src;
+              this.CuentaService.mostrarCuenta(this.cuenta.IDCuenta)
+                .subscribe((resCuenta: any) => {
+                  this.cuenta = resCuenta;
+                });
+            },
+            error: () => {
+              Swal.fire({
+                icon: 'error',
+                title: 'No se pudo subir la fotografía',
+                text: 'El servidor rechazó la imagen o no fue posible guardarla.'
+              });
+            }
+          });
+      })
+      .catch(() => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error de lectura',
+          text: 'No fue posible leer el archivo seleccionado.'
+        });
+      });
   }
 
   modificar_datos_Nombre() {
@@ -246,49 +276,57 @@ export class ClienteConfigComponent implements AfterViewInit, OnInit {
   }
   
   
-  getFileBlob(file: any) {
-    var reader = new FileReader();
-    return new Promise(function (resolve, reject) { //Espera a que se cargue la img
-      reader.onload = (function (thefile) {
-        return function (e) {
-          // console.log(e.target?.result)
-          resolve(e.target?.result);
-        };
-
-      })(file);
+  getFileBlob(file: File): Promise<string> {
+    return new Promise<string>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        if (typeof reader.result === 'string') {
+          resolve(reader.result);
+        } else {
+          reject(new Error('El archivo no produjo una URL Base64 válida.'));
+        }
+      };
+      reader.onerror = () => reject(new Error('No se pudo leer el archivo.'));
       reader.readAsDataURL(file);
     });
-
   }
-  eliminaImagen(IDCuenta: any) {
-    if(this.cuenta.Foto==1){
-      this.imagenesService.deleteImagen(IDCuenta, 'usuarios').subscribe((res) => {
-      }, err => console.error(err));
-  
-      this.CuentaService.set_foto_cero(0, IDCuenta).subscribe((resFoto: any) => {
-        Swal.fire({
-          title: this.mensaje.imagen2,
-          text: this.mensaje.text2,
-          icon: 'success',
-          confirmButtonText: 'OK'
-        }).then((result) => {
-          if (result.isConfirmed) {
-            // Aquí colocas el código que quieres que se ejecute después de hacer clic en el botón "OK"
-            console.log('Se ha hecho clic en OK');
-            localStorage.setItem('Foto', '0');
-            location.reload();
-            // Puedes agregar más código aquí según lo que desees hacer después de hacer clic en OK
-          }
-        });
-      }, err => console.error(err));
-    }else{
+
+  // SEGURIDAD [IMG-FRONT-02]: no modificar Foto en MySQL si falló
+  // la eliminación física de la fotografía.
+  eliminaImagen(IDCuenta: any): void {
+    if (this.cuenta.Foto !== 1) {
       Swal.fire({
         title: this.mensaje.imagen3,
         text: this.mensaje.text3,
         icon: 'error',
         confirmButtonText: 'Ok'
       });
+      return;
     }
+
+    this.imagenesService.deleteImagen(IDCuenta, 'usuarios').subscribe({
+      next: () => {
+        this.CuentaService.set_foto_cero(0, IDCuenta).subscribe({
+          next: () => {
+            localStorage.setItem('Foto', '0');
+            Swal.fire({
+              title: this.mensaje.imagen2,
+              text: this.mensaje.text2,
+              icon: 'success',
+              confirmButtonText: 'OK'
+            }).then((result) => {
+              if (result.isConfirmed) location.reload();
+            });
+          },
+          error: () => {
+            Swal.fire({icon: 'error', title: 'No se pudo actualizar la cuenta'});
+          }
+        });
+      },
+      error: () => {
+        Swal.fire({icon: 'error', title: 'No se pudo eliminar la fotografía'});
+      }
+    });
   }
 
 
